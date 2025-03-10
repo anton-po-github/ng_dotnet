@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
-import { environment } from '../../assets/environment';
+import * as saveAs from 'file-saver';
 
-import saveAs from 'file-saver';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-blob-storage',
   templateUrl: './blob-storage.component.html',
-  styleUrls: ['./blob-storage.component.css'],
+  styleUrls: ['./blob-storage.component.scss'],
   standalone: false
 })
 export class BlobStorageComponent implements OnInit {
@@ -20,7 +20,7 @@ export class BlobStorageComponent implements OnInit {
   fileToUpload!: FormData;
   showLoader!: boolean;
 
-  private url = environment.baseUrl + 'api/blob';
+  private url = environment.baseUrl + 'api/azurestorage';
 
   constructor(private http: HttpClient) { }
 

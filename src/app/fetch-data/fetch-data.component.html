@@ -1,0 +1,102 @@
+<!-- <h3>for myFile Icon</h3>
+<app-upload (fileImage)="myFile = $event"></app-upload>
+
+<button (click)="uploadFile()">UPLOAD</button> -->
+<br />
+<br />
+<h1>CRUD for Books</h1>
+
+<div class="form-group" *ngFor="let book of books$ | async">
+  <img
+    style="height: 50px"
+    [src]="'data:image/png;base64,' + book.iconPath"
+    alt=""
+  />
+  <div>
+    {{ 'Id: ' + book.id }}
+
+  </div>
+  
+  <div>
+    {{ 'Book Name: ' + book.bookName }}
+
+  </div>
+
+  <div>
+    {{ 'Category: ' + book.category }}
+
+  </div>
+
+  <div>
+    {{ 'Price: ' + book.price }}
+  </div>
+
+  <div>
+    {{ 'Author: ' + book.author }}
+  </div>
+
+  <br>
+
+  <div>
+    <button (click)="deleteBook(book.id)">delele</button>
+    <button
+      (click)="
+        isEdit = !isEdit;
+        newBook.id = book.id;
+        newBook.bookName = book.bookName;
+        newBook.category = book.category;
+        newBook.author = book.author;
+        newBook.price = book.price
+      "
+    >
+      to update
+    </button>
+  </div>
+ 
+
+</div>
+<br>
+<h3>for newBook Icon</h3>
+<app-upload (fileImage)="newBook.icon = $event"></app-upload>
+
+<div class="form-group">
+  <label>bookName</label>
+  <input class="form-control" [(ngModel)]="newBook.bookName" type="text" />
+  <label>category</label>
+  <input class="form-control" [(ngModel)]="newBook.category" type="text" />
+  <label>author</label>
+  <input class="form-control" [(ngModel)]="newBook.author" type="text" />
+  <label>price</label>
+  <input class="form-control" [(ngModel)]="newBook.price" type="number" />
+  <button (click)="addOneBook()">add New Book</button>
+  <button (click)="updateOneBook(newBook.id)" *ngIf="isEdit">update</button>
+</div>
+
+<br>
+<br>
+
+
+<!-- <h1>CRUD for MY Books</h1>
+
+<div class="form-group" *ngFor="let book of myBooks$ | async">
+  {{ book.id }}
+  {{ book.bookName }}
+  {{ book.category }}
+  {{ book.price }}
+  {{ book.author }}
+  <button (click)="deleteMyBook(book.id)">delele</button>
+  <button (click)="isMyEdit = !isMyEdit; newMyBook.id = book.id; newMyBook.bookName = book.bookName; newMyBook.category = book.category; newMyBook.author = book.author; newMyBook.price = book.price;">to update</button>
+</div>
+
+<div class="form-group">
+  <label>bookName</label>
+  <input class="form-control" [(ngModel)]="newMyBook.bookName" type="text">
+  <label>category</label>
+  <input class="form-control" [(ngModel)]="newMyBook.category" type="text">
+  <label>author</label>
+  <input class="form-control" [(ngModel)]="newMyBook.author" type="text">
+  <label>price</label>
+  <input class="form-control" [(ngModel)]="newMyBook.price" type="number">
+  <button (click)="addOneMyBook()">add New Book</button>
+  <button (click)="updateOneMyBook(newMyBook.id)" *ngIf="isMyEdit">update</button>
+</div> -->
