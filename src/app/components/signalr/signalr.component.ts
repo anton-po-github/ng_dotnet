@@ -38,11 +38,9 @@ export class SignalrComponent implements OnInit {
   private startHttpRequest = () => {
     this.http.get('http://localhost:5555/api/chart')
       .subscribe(res => {
-      //  console.log(res);
       });
   }
   public chartClicked = (event) => {
-    // console.log(event);
     this.signalRService.broadcastChartData();
   }
 

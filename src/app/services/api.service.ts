@@ -44,9 +44,6 @@ export class ApiService {
 
     formData.append('body', JSON.stringify(newBook));
 
-    console.log(newBook);
-
-
     return this.http.post<any>(this.url + `books`, formData, { headers: this.httpHeadersFormData });
   }
 

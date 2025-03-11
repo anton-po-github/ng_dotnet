@@ -18,11 +18,14 @@
     </tr>
     <tr *ngFor="let file of files">
       <td class="column1">{{file}}</td>
-      <td class="column2" style="text-align:center;cursor: pointer;" (click)="downloadFile(file)"><i class="fa fa-download"></i></td>
+      <td class="column2" style="text-align:center;cursor: pointer;" (click)="downloadFile(file)">
+        <button class="btn btn-success" >Upload</button>
+
+      </td>
 
       <td class="column3" style="text-align:center;" (click)="deleteFile(file)">
 
-        <i class="fa-solid fa-trash"></i>
+        <button class="btn btn-danger">Delete</button>
 
       </td>
     </tr>

@@ -33,6 +33,9 @@ import { BlobStorageComponent } from './components/blob-storage/blob-storage.com
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'signalr', component: SignalrComponent },
       { path: 'az-blob-storage', component: BlobStorageComponent },
+      
+      { path: 'users', loadChildren: () =>
+        import('./components/users/users.module').then((m) => m.UsersModule), },
     ])
   ],
   providers: [

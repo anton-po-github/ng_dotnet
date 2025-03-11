@@ -48,8 +48,6 @@ export class BlobStorageComponent implements OnInit {
 
   onClick() {
 
-    console.log('object');
-
     let fileUpload = this.fileUpload.nativeElement;
 
     fileUpload.onchange = () => {
