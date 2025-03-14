@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 export interface INewUser {
@@ -33,10 +33,10 @@ export interface IUsers {
 })
 export class UsersService {
 
-  private url = environment.baseUrl + 'api/v1/users';
-  
+  private url = environment.baseUrl + 'v1/users';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+   }
 
   public getUsers(): Observable<Array<IUsers>> {
     return this.http.get<Array<IUsers>>(this.url);

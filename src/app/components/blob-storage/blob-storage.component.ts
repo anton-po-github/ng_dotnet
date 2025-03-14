@@ -25,7 +25,7 @@ export class BlobStorageComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.showBlobs();
+   // this.showBlobs();
   }
 
   showBlobs() {

@@ -21,6 +21,10 @@
           
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/az-blob-storage']">Azure BS</a>
+          </li>  
+          
+          <li class="nav-item cursor-pointer">
+            <a class="nav-link text-dark" (click)="loginLogout()"> {{this.sharedService.token ? 'Logout' : 'Login'}}</a>
           </li>
           <!-- <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/signalr']">Signalr</a>
