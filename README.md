@@ -1,4 +1,4 @@
-# dotnet_mongo_local_crud
+# dotnet_ng_ui
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 19.0.0.
 
