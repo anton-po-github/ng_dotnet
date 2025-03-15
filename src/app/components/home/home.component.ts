@@ -9,20 +9,23 @@ import { HomeService } from './home.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private homeService: HomeService){
-
-  }
+  constructor(private homeService: HomeService){}
 
   ngOnInit(): void {
-    this.homeService.getIdentityUsers().subscribe({
-      next: (result) => {
-      },
-      error: (err) => {
-        console.error(err);
-      },
-      complete: () => {
-       // this.showLoader = false;
-      }
-    })
+    setTimeout(() => {
+      this.homeService.getIdentityUsers().subscribe({
+        next: (result) => {
+          console.log(result);
+        },
+        error: (err) => {
+          console.error(err);
+        },
+        complete: () => {
+         // this.showLoader = false;
+        }
+      })
+    }, 1000);
+
+ 
   }
 }

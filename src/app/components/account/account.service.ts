@@ -39,7 +39,8 @@ export class AccountService {
       map((user: IUser) => {
         if (user) {
 
-          localStorage.setItem('token', user.token);
+          localStorage.setItem('postgre-token', user.token);
+          // localStorage.setItem('mongo-token', any.accessToken);
 
           this.currentUserSource.next(user);
 
@@ -55,11 +56,12 @@ export class AccountService {
 
   login(values: any) {
 
-    return this.http.post<any>(this.mongoUrl, values).pipe(
+   // return this.http.post<any>(this.mongoUrl, values).pipe(
+    return this.http.post<any>(this.baseUrl + 'Account/login', values).pipe(
       map(any => {
 
-       // localStorage.setItem('token', any.token);
-       localStorage.setItem('mongo-token', any.accessToken);
+        localStorage.setItem('postgre-token', any.token);
+      // localStorage.setItem('mongo-token', any.accessToken);
 
         console.log(any);
 

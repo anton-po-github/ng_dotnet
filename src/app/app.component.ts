@@ -12,6 +12,6 @@ export class AppComponent implements OnInit {
   constructor(private accountService: AccountService){}
  
   ngOnInit(): void {
-    this.accountService.loadCurrentUser(localStorage.getItem('token')).subscribe();
+    this.accountService.loadCurrentUser(localStorage.getItem('postgre-token')).subscribe();
   }
 }
