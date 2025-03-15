@@ -49,7 +49,6 @@ export class ListUsersComponent implements OnInit {
   }
 
   private onGetUsers(): void {
-
     this.usersService.getUsers().subscribe({
       next: (result) => {
        result.forEach(item => {

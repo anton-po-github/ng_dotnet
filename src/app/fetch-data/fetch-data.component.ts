@@ -30,11 +30,10 @@ export class FetchDataComponent implements OnInit {
   public newMyBook: IBook = { id: null, bookName: null, author: null, category: null, price: null, icon: null, iconId: null };
   constructor(
     private apiService: ApiService
-  ) {
-  }
+  ) {}
+
   ngOnInit() {
     this.getAllBooks();
-    this.getAllMyBooks();
   }
 
   public deleteBook(bookId: string): void {
@@ -58,6 +57,7 @@ export class FetchDataComponent implements OnInit {
         error => console.log(error)
       );
   }
+
   public updateOneBook(bookId: string): void {
     this.apiService.updateOneBook(bookId, this.newBook)
       .subscribe(
@@ -70,44 +70,11 @@ export class FetchDataComponent implements OnInit {
       );
   }
 
-  public deleteMyBook(bookId: string): void {
-    this.apiService.deleteMyBook(bookId)
-      .subscribe(
-        res => {
-         // console.log(res);
-          this.getAllMyBooks();
-        },
-        error => console.log(error)
-      );
-  }
-  public addOneMyBook(): void {
-    this.apiService.addOneMyBook(this.newMyBook)
-      .subscribe(
-        res => {
-        //  console.log(res);
-          this.newMyBook = { id: null, bookName: null, author: null, category: null, price: null, icon: null, iconId: null };
-          this.getAllMyBooks();
-        },
-        error => console.log(error)
-      );
-  }
-  public updateOneMyBook(bookId: string): void {
-    this.apiService.updateOneMyBook(bookId, this.newMyBook)
-      .subscribe(
-        res => {
-        //  console.log(res);
-          this.newMyBook = { id: null, bookName: null, author: null, category: null, price: null, iconId: null, icon: null };
-          this.getAllMyBooks();
-        },
-        error => console.log(error)
-      );
-  }
+
   private getAllBooks(): void {
     this.books$ = this.apiService.getAllBooks();
   }
-  private getAllMyBooks(): void {
-    this.myBooks$ = this.apiService.getAllMyBooks();
-  }
+
   public uploadFile(): void {
     this.apiService.uploadFile(this.myFile).subscribe(
       res => {

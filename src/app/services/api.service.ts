@@ -8,8 +8,7 @@ import { IBook } from '../fetch-data/fetch-data.component';
 })
 export class ApiService {
 
-  private url = 'http://localhost:5555/';
-  private myUrl = 'http://localhost:5555/my';
+  private url = 'http://localhost:5325/';
   protected httpHeaders: HttpHeaders = new HttpHeaders();
   protected httpHeadersForm: HttpHeaders = new HttpHeaders();
   protected httpHeadersFormData: HttpHeaders = new HttpHeaders();
@@ -22,7 +21,12 @@ export class ApiService {
   }
 
   getAllBooks(): Observable<Array<IBook>> {
-    return this.http.get<Array<IBook>>(this.url + 'books', { headers: this.httpHeaders });
+
+    let headers = new HttpHeaders();
+    
+    headers = headers.set('Authorization', `Bearer ${localStorage.getItem('mongo-token')}`);
+
+    return this.http.get<Array<IBook>>(this.url + 'books', { headers });
   }
 
   deleteBook(bookId: string): Observable<any> {
@@ -61,21 +65,7 @@ export class ApiService {
     return this.http.put<any>(this.url + `books/${bookId}`, newBook, { headers: this.httpHeaders });
   }
   // for a collection MyBooks
-  getAllMyBooks(): Observable<Array<IBook>> {
-    return this.http.get<Array<IBook>>(this.myUrl + 'books', { headers: this.httpHeaders });
-  }
 
-  deleteMyBook(bookId: string): Observable<any> {
-    return this.http.delete<any>(this.myUrl + `books/${bookId}`, { headers: this.httpHeaders });
-  }
-
-  addOneMyBook(newBook: IBook): Observable<any> {
-    return this.http.post<any>(this.myUrl + `books`, newBook, { headers: this.httpHeaders });
-  }
-
-  updateOneMyBook(bookId, newBook: IBook): Observable<any> {
-    return this.http.put<any>(this.myUrl + `books/${bookId}`, newBook, { headers: this.httpHeaders });
-  }
   /* uploadFile(file: FormData): Observable<any> {
      return this.http.post<any>(this.url + `api/upload`, file, {
        reportProgress: true,

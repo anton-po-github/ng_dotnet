@@ -15,6 +15,8 @@ export interface IUser {
 })
 export class AccountService {
   baseUrl = environment.baseUrl;
+
+  mongoUrl = 'http://localhost:5325/api/v1/authenticate/login'
   
   private currentUserSource = new ReplaySubject<IUser | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
@@ -53,14 +55,15 @@ export class AccountService {
 
   login(values: any) {
 
-    return this.http.post<any>(this.baseUrl + 'account/login', values).pipe(
+    return this.http.post<any>(this.mongoUrl, values).pipe(
       map(any => {
 
-        localStorage.setItem('token', any.token);
+       // localStorage.setItem('token', any.token);
+       localStorage.setItem('mongo-token', any.accessToken);
 
         console.log(any);
 
-        this.currentUserSource.next(any);
+       // this.currentUserSource.next(any);
       })
     )
   }

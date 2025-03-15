@@ -37,7 +37,7 @@ export class UsersService {
 
   constructor(private http: HttpClient) {
    }
-
+  
   public getUsers(): Observable<Array<IUsers>> {
     return this.http.get<Array<IUsers>>(this.url);
   }

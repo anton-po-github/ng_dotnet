@@ -24,7 +24,7 @@ export class RegisterComponent {
 
   public onSubmit() {
     this.accountService.register(this.registerForm.value).subscribe({
-      next: () => this.router.navigateByUrl('auth/login'),
+      next: () => this.router.navigateByUrl('users'),
 
       error: error => this.errors = error.errors
 
