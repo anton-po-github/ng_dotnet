@@ -12,29 +12,35 @@ export class LoginComponent {
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
-  })
+  });
   returnUrl: string;
 
-  constructor(private accountService: AccountService, private router: Router, 
-    private activatedRoute: ActivatedRoute) {
-      this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/shop'
+  constructor(
+    private accountService: AccountService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.returnUrl =
+      this.activatedRoute.snapshot.queryParams['returnUrl'] || '/shop';
   }
 
   public goToRegister(): void {
-    this.router.navigate(["auth/register"])
+    this.router.navigate(['auth/register']);
   }
 
- public onSubmit() {
+  public onSubmit() {
     this.accountService.login(this.loginForm.value).subscribe({
       next: (result) => {
-        this.router.navigate(["users"])
+        setTimeout(() => {
+          this.router.navigate(['users']);
+        }, 2000);
       },
       error: (err) => {
         console.error(err);
       },
       complete: () => {
-       // this.showLoader = false;
+        // this.showLoader = false;
       }
-    })
+    });
   }
 }
