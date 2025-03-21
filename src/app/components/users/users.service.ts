@@ -18,7 +18,7 @@ export interface IUsersDetails {
   salary: number;
 }
 
-export interface IUsers {
+export interface IUsersData {
   details: IUsersDetails | string;
   email: string;
   firstName: string;
@@ -28,29 +28,43 @@ export interface IUsers {
   photoUrl: string;
 }
 
+export interface IUsers {
+  count: number;
+  pageIndex: number;
+  pageSize: number;
+  data: Array<IUsersData>;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-
   private url = environment.baseUrl + 'v1/users';
 
-  constructor(private http: HttpClient) {
-   }
-  
-  public getUsers(): Observable<Array<IUsers>> {
-    return this.http.get<Array<IUsers>>(this.url);
+  constructor(private http: HttpClient) {}
+
+  public getUsers(params?: string): Observable<Array<IUsers>> {
+    let userUrl = this.url;
+
+    if (params) {
+      userUrl += params;
+    }
+
+    return this.http.get<Array<IUsers>>(userUrl);
   }
 
   public addNewUser(newUser: INewUser): Observable<IUserCreatedDeleted> {
-    return this.http.post<any>(this.url, newUser)
-  }   
-  
-  public updateUser(id: number, newUser: INewUser): Observable<IUserCreatedDeleted> {
-    return this.http.put<any>(this.url + '/' + id, newUser)
-  } 
-  
+    return this.http.post<any>(this.url, newUser);
+  }
+
+  public updateUser(
+    id: number,
+    newUser: INewUser
+  ): Observable<IUserCreatedDeleted> {
+    return this.http.put<any>(this.url + '/' + id, newUser);
+  }
+
   public deleteUser(id: number): Observable<IUserCreatedDeleted> {
-    return this.http.delete<any>(this.url + '/' + id)
+    return this.http.delete<any>(this.url + '/' + id);
   }
 }

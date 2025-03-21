@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { environment } from 'src/environments/environment';
-
 import { Subject } from 'rxjs';
-import { IUsers, UsersService } from '../users.service';
+import { IUsers, IUsersData, UsersService } from '../users.service';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-list-users',
@@ -13,59 +10,88 @@ import { Router } from '@angular/router';
   standalone: false
 })
 export class ListUsersComponent implements OnInit {
-
-  private usersSource = new Subject<Array<IUsers>>();
+  private usersSource = new Subject<Array<IUsersData>>();
 
   public users$ = this.usersSource.asObservable();
 
-  constructor(public usersService: UsersService, private router: Router) { }
+  public searchUsers = '';
+
+  private resultIUsers = {} as IUsers;
+
+  constructor(public usersService: UsersService, private router: Router) {}
 
   ngOnInit() {
-    this.onGetUsers();
+    this.onGetUsers(`?sort=name&pageIndex=${1}&pageSize=3`);
   }
 
   public updateUser(user: IUsers): void {
-    this.router.navigate(["/users/add-update-user", user])
+    this.router.navigate(['/users/add-update-user', user]);
   }
 
   public deleteUser(id: number): void {
-
     this.usersService.deleteUser(id).subscribe({
       next: (result) => {
-       if (result.message === 'User deleted') {
-        this.onGetUsers();
-     }
-
-      
+        if (result.message === 'User deleted') {
+          this.onGetUsers();
+        }
       },
       error: (err) => {
         console.error(err);
       },
       complete: () => {
-       // this.showLoader = false;
+        // this.showLoader = false;
       }
     });
-  
   }
 
-  private onGetUsers(): void {
-    this.usersService.getUsers().subscribe({
-      next: (result) => {
-       result.forEach(item => {
-        item.details = JSON.parse(item.details as string)
-       })
+  public searchUsersBtn(): void {
+    let pageIndex = this.resultIUsers.pageIndex;
 
-     //  result.
+    let paramsUsers = `?sort=name&pageIndex=${1}&pageSize3`;
 
-       this.usersSource.next(result)
+    if (this.searchUsers) {
+      paramsUsers += `&search=${this.searchUsers}`;
+    }
+
+    this.onGetUsers(paramsUsers);
+  }
+
+  public nextPrevUsers(type: string): void {
+    let pageIndex = this.resultIUsers.pageIndex;
+
+    if (type === 'next') {
+      pageIndex++;
+    } else {
+      pageIndex--;
+    }
+
+    let paramsUsers = `?sort=name&pageIndex=${pageIndex}&pageSize=3`;
+
+    this.onGetUsers(paramsUsers);
+  }
+
+  private onGetUsers(params?: string): void {
+    this.usersService.getUsers(params).subscribe({
+      // type: IUsers
+      next: (result: any) => {
+        this.resultIUsers = result;
+
+        result.data.forEach((d) => {
+          d.details = JSON.parse(d.details as string);
+        });
+
+        //  result.
+
+        console.log(result);
+
+        this.usersSource.next(result.data);
       },
       error: (err) => {
         console.error(err);
       },
       complete: () => {
-       // this.showLoader = false;
+        // this.showLoader = false;
       }
-    })
+    });
   }
-
 }
