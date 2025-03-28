@@ -14,18 +14,17 @@ export interface IUser {
   providedIn: 'root'
 })
 export class AccountService {
-  baseUrl = environment.baseUrl;
+  postgreUrl = environment.baseUrl;
+  // register in postman
+  mongoLoginUrl = 'http://localhost:5325/api/v1/authenticate/login';
 
-  mongoUrl = 'http://localhost:5325/api/v1/authenticate/login'
-  
   private currentUserSource = new ReplaySubject<IUser | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
   public loadCurrentUser(token: string | null) {
     if (token == null) {
-
       this.currentUserSource.next(null);
 
       return of(null);
@@ -35,69 +34,69 @@ export class AccountService {
 
     headers = headers.set('Authorization', `Bearer ${token}`);
 
-    return this.http.get<IUser>(this.baseUrl + 'account', {headers}).pipe(
+    return this.http.get<IUser>(this.postgreUrl + 'account', { headers }).pipe(
       map((user: IUser) => {
         if (user) {
-
           localStorage.setItem('postgre-token', user.token);
-          // localStorage.setItem('mongo-token', any.accessToken);
+          //localStorage.setItem('mongo-token', user.accessToken as any);
 
           this.currentUserSource.next(user);
 
           return user;
-
         } else {
-
           return null;
         }
       })
-    )
+    );
   }
 
   login(values: any) {
-
-   // return this.http.post<any>(this.mongoUrl, values).pipe(
-    return this.http.post<any>(this.baseUrl + 'Account/login', values).pipe(
-      map(any => {
-
+    //return this.http.post<any>(this.mongoLoginUrl, values).pipe(
+    return this.http.post<any>(this.postgreUrl + 'Account/login', values).pipe(
+      map((any) => {
         localStorage.setItem('postgre-token', any.token);
-      // localStorage.setItem('mongo-token', any.accessToken);
+        //localStorage.setItem('mongo-token', any.accessToken);
 
         console.log(any);
 
-       // this.currentUserSource.next(any);
+        // this.currentUserSource.next(any);
       })
-    )
+    );
   }
 
   register(values: any) {
-    return this.http.post<any>(this.baseUrl + 'account/register', values).pipe(
-      map(any => {
+    return this.http
+      .post<any>(this.postgreUrl + 'account/register', values)
+      .pipe(
+        map((any) => {
+          console.log(any);
 
-        localStorage.setItem('token', any.token);
+          //  localStorage.setItem('token', any.token);
 
-        this.currentUserSource.next(any);
-      })
-    )
+          this.currentUserSource.next(any);
+        })
+      );
   }
 
   logout() {
     localStorage.removeItem('token');
-    
+
     this.currentUserSource.next(null);
 
     this.router.navigateByUrl('auth/login');
   }
 
   checkEmailExists(email: string) {
-    return this.http.get<boolean>(this.baseUrl + 'account/emailExists?email=' + email);
+    return this.http.get<boolean>(
+      this.postgreUrl + 'account/emailExists?email=' + email
+    );
   }
 
   getanyAddress() {
-    return this.http.get<any>(this.baseUrl + 'account/address');
+    return this.http.get<any>(this.postgreUrl + 'account/address');
   }
 
   updateanyAddress(address: any) {
-    return this.http.put(this.baseUrl + 'account/address', address);
+    return this.http.put(this.postgreUrl + 'account/address', address);
   }
 }

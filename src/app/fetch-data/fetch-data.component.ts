@@ -20,67 +20,106 @@ export interface IBook {
   standalone: false
 })
 export class FetchDataComponent implements OnInit {
-
   public isEdit: boolean;
   public isMyEdit: boolean;
   public myFile: FormData;
   public books$: Observable<Array<IBook>>;
   public myBooks$: Observable<Array<IBook>>;
-  public newBook: IBook = { id: '', bookName: 'bookName', author: 'author', category: 'category', price: 123, icon: null, iconId: null };
-  public newMyBook: IBook = { id: null, bookName: null, author: null, category: null, price: null, icon: null, iconId: null };
-  constructor(
-    private apiService: ApiService
-  ) {}
+  public newBook: IBook = {
+    id: '',
+    bookName: 'bookName',
+    author: 'author',
+    category: 'category',
+    price: 123,
+    icon: null,
+    iconId: null
+  };
+  public newMyBook: IBook = {
+    id: null,
+    bookName: null,
+    author: null,
+    category: null,
+    price: null,
+    icon: null,
+    iconId: null
+  };
+  constructor(private apiService: ApiService) {}
 
   ngOnInit() {
     this.getAllBooks();
   }
 
   public deleteBook(bookId: string): void {
-    this.apiService.deleteBook(bookId)
-      .subscribe(
-        res => {
-         // console.log(res);
-          this.getAllBooks();
-        },
-        error => console.log(error)
-      );
+    this.apiService.deleteBook(bookId).subscribe({
+      next: (result) => {
+        this.getAllBooks();
+      },
+      error: (err) => {
+        console.error(err);
+      },
+      complete: () => {}
+    });
   }
 
   public addOneBook(): void {
-    this.apiService.addOneBook(this.newBook)
-      .subscribe(
-        res => {
-          this.newBook = { id: null, bookName: null, author: null, category: null, price: null, icon: null, iconId: null };
-          this.getAllBooks();
-        },
-        error => console.log(error)
-      );
+    this.apiService.addOneBook(this.newBook).subscribe({
+      next: (result) => {
+        this.newBook = {
+          id: null,
+          bookName: null,
+          author: null,
+          category: null,
+          price: null,
+          icon: null,
+          iconId: null
+        };
+        this.getAllBooks();
+      },
+      error: (err) => {
+        console.error(err);
+      },
+      complete: () => {}
+    });
   }
 
   public updateOneBook(bookId: string): void {
-    this.apiService.updateOneBook(bookId, this.newBook)
-      .subscribe(
-        res => {
-         // console.log(res);
-          this.newBook = { id: null, bookName: null, author: null, category: null, price: null, iconId: null, icon: null };
+    this.apiService
+      .updateOneBook(bookId, this.newBook)
+
+      .subscribe({
+        next: (result) => {
+          this.newBook = {
+            id: null,
+            bookName: null,
+            author: null,
+            category: null,
+            price: null,
+            iconId: null,
+            icon: null
+          };
           this.getAllBooks();
         },
-        error => console.log(error)
-      );
+        error: (err) => {
+          console.error(err);
+        },
+        complete: () => {}
+      });
   }
-
 
   private getAllBooks(): void {
     this.books$ = this.apiService.getAllBooks();
   }
 
   public uploadFile(): void {
-    this.apiService.uploadFile(this.myFile).subscribe(
-      res => {
-       // console.log(res);
-      }, error => console.error(error)
-    );
-  }
+    this.apiService
+      .uploadFile(this.myFile)
 
+      .subscribe({
+        next: (result) => {},
+        error: (err) => {
+          console.error(err);
+        },
+        complete: () => {}
+      });
+  }
 }

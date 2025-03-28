@@ -15,18 +15,23 @@ export class JwtInterceptor implements HttpInterceptor {
 
   constructor(private accountService: AccountService) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-     this.accountService.currentUser$.pipe(take(1)).subscribe({next: user => {
-      this.token = user?.token
-     } })
-
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: (user) => {
+        this.token = user?.token;
+      }
+    });
+    // this is a working code, but when UI works with mongo and postgres at the same time, then the token must be different to receive data
     if (this.token) {
-      request = request.clone({
+      /*  request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${this.token}`
         }
-      })
-    } 
+      }) */
+    }
 
     return next.handle(request);
   }
