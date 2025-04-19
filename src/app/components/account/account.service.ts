@@ -51,11 +51,11 @@ export class AccountService {
   }
 
   login(values: any) {
-    //return this.http.post<any>(this.mongoLoginUrl, values).pipe(
+    // return this.http.post<any>(this.mongoLoginUrl, values).pipe(
     return this.http.post<any>(this.postgreUrl + 'Account/login', values).pipe(
       map((any) => {
         localStorage.setItem('postgre-token', any.token);
-        //localStorage.setItem('mongo-token', any.accessToken);
+        // localStorage.setItem('mongo-token', any.accessToken);
 
         console.log(any);
 

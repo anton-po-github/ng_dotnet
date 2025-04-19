@@ -14,17 +14,14 @@
   />
   <div>
     {{ 'Id: ' + book.id }}
-
   </div>
-  
+
   <div>
     {{ 'Book Name: ' + book.bookName }}
-
   </div>
 
   <div>
     {{ 'Category: ' + book.category }}
-
   </div>
 
   <div>
@@ -35,9 +32,9 @@
     {{ 'Author: ' + book.author }}
   </div>
 
-  <br>
+  <br />
 
-  <div>
+  <div class="mb-3">
     <button (click)="deleteBook(book.id)">delele</button>
     <button
       (click)="
@@ -52,10 +49,9 @@
       to update
     </button>
   </div>
- 
-
 </div>
-<br>
+
+<br />
 <h3>for newBook Icon</h3>
 <app-upload (fileImage)="newBook.icon = $event"></app-upload>
 
@@ -72,9 +68,8 @@
   <button (click)="updateOneBook(newBook.id)" *ngIf="isEdit">update</button>
 </div>
 
-<br>
-<br>
-
+<br />
+<br />
 
 <!-- <h1>CRUD for MY Books</h1>
 
