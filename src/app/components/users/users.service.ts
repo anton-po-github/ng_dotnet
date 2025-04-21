@@ -7,6 +7,7 @@ export interface INewUser {
   firstName: string;
   lastName: string;
   email: string;
+  photo: File;
 }
 
 export interface IUserCreatedDeleted {
@@ -61,17 +62,31 @@ export class UsersService {
   }
 
   public addNewUser(newUser: INewUser): Observable<IUserCreatedDeleted> {
-    return this.http.post<any>(this.url, newUser);
+    return this.http.post<any>(this.url, this.getFormDataUser(newUser));
   }
 
   public updateUser(
-    id: number,
+    id: string,
     newUser: INewUser
   ): Observable<IUserCreatedDeleted> {
-    return this.http.put<any>(this.url + '/' + id, newUser);
+    return this.http.put<any>(
+      this.url + '/' + id,
+      this.getFormDataUser(newUser)
+    );
   }
 
-  public deleteUser(id: number): Observable<IUserCreatedDeleted> {
+  public deleteUser(id: string): Observable<IUserCreatedDeleted> {
     return this.http.delete<any>(this.url + '/' + id);
+  }
+
+  private getFormDataUser(newUser: INewUser): FormData {
+    const formData: FormData = new FormData();
+
+    formData.append('photo', newUser.photo);
+    formData.append('firstName', newUser.firstName);
+    formData.append('lastName', newUser.lastName);
+    formData.append('email', newUser.email);
+
+    return formData;
   }
 }

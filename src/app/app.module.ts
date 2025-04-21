@@ -10,13 +10,14 @@ import { RouterModule } from '@angular/router';
 
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
+import { SharedModule } from './components/shared/shared.module';
+
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { ChatComponent } from './SignalR-chat/chat/chat.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { UploadComponent } from './fetch-data/upload/upload.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { BlobStorageComponent } from './components/blob-storage/blob-storage.component';
 
@@ -26,12 +27,12 @@ import { BlobStorageComponent } from './components/blob-storage/blob-storage.com
     NavMenuComponent,
     ChatComponent,
     HomeComponent,
-    UploadComponent,
     FetchDataComponent,
     BlobStorageComponent
   ],
   imports: [
     BrowserModule,
+    SharedModule,
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },

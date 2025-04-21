@@ -1,34 +1,59 @@
-  <div class="container">
-      <div class="row">
-          <div class="card col-md-6 offset-md-3 offset-md-3">
-            <h3 class="text-center">
-              {{ this.route.snapshot.paramMap.get('firstName') ? 'Update User' : 'Add User' }}
-            </h3>
-            
-              <div class="card-body">
-                  <form>
-                      <div class="form-group mb-3">
-                          <label> First Name: </label>
-                          <input placeholder="First Name" [(ngModel)]="newUser.firstName" name="firstName" class="form-control"
-                              />
-                      </div>
-                      <div class="form-group mb-3">
-                          <label> Last Name: </label>
-                          <input placeholder="Last Name" [(ngModel)]="newUser.lastName" name="lastName" class="form-control"
-                               />
-                      </div>
-                      <div class="form-group mb-3">
-                          <label> Email: </label>
-                          <input placeholder="Email Address" [(ngModel)]="newUser.email" name="email" class="form-control"
-                               />
-                      </div>
+<div class="container">
+  <div class="row">
+    <div class="card col-md-6 offset-md-3 offset-md-3">
+      <h3 class="text-center">
+        {{
+          this.route.snapshot.paramMap.get('firstName')
+            ? 'Update User'
+            : 'Add User'
+        }}
+      </h3>
 
-                      <button class="btn btn-success me-3" (click)="addUpdateUser()">{{this.route.snapshot.paramMap.get('firstName') ? 'Update' : 'Add'}}</button>
-
-                      <button class="btn btn-danger" [routerLink]="['/users']">Cancel</button>
-                     
-                  </form>
-              </div>
+      <div class="card-body">
+        <form>
+          <div class="form-group mb-3">
+            <label> First Name: </label>
+            <input
+              placeholder="First Name"
+              [(ngModel)]="newUser.firstName"
+              name="firstName"
+              class="form-control"
+            />
           </div>
+          <div class="form-group mb-3">
+            <label> Last Name: </label>
+            <input
+              placeholder="Last Name"
+              [(ngModel)]="newUser.lastName"
+              name="lastName"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label> Email: </label>
+            <input
+              placeholder="Email Address"
+              [(ngModel)]="newUser.email"
+              name="email"
+              class="form-control"
+            />
+          </div>
+
+          <div>
+            <app-upload (fileImage)="newUser.photo = $event" />
+          </div>
+
+          <button class="btn btn-success me-3" (click)="addUpdateUser()">
+            {{
+              this.route.snapshot.paramMap.get('firstName') ? 'Update' : 'Add'
+            }}
+          </button>
+
+          <button class="btn btn-danger" [routerLink]="['/users']">
+            Cancel
+          </button>
+        </form>
       </div>
+    </div>
   </div>
+</div>

@@ -21,14 +21,14 @@ export class ListUsersComponent implements OnInit {
   constructor(public usersService: UsersService, private router: Router) {}
 
   ngOnInit() {
-    this.onGetUsers(`?sort=name&pageIndex=${1}&pageSize=3`);
+    this.onGetUsers(`?sort=name&pageIndex=${1}&pageSize=10`);
   }
 
   public updateUser(user: IUsers): void {
     this.router.navigate(['/users/add-update-user', user]);
   }
 
-  public deleteUser(id: number): void {
+  public deleteUser(id: string): void {
     this.usersService.deleteUser(id).subscribe({
       next: (result) => {
         if (result.message === 'User deleted') {
@@ -65,7 +65,7 @@ export class ListUsersComponent implements OnInit {
       pageIndex--;
     }
 
-    let paramsUsers = `?sort=name&pageIndex=${pageIndex}&pageSize=3`;
+    let paramsUsers = `?sort=name&pageIndex=${pageIndex}&pageSize=10`;
 
     this.onGetUsers(paramsUsers);
   }
@@ -82,7 +82,7 @@ export class ListUsersComponent implements OnInit {
 
         //  result.
 
-        console.log(result);
+        // console.log(result);
 
         this.usersSource.next(result.data);
       },

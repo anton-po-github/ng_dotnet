@@ -35,18 +35,33 @@
     <table class="table table-striped table-bordered">
       <thead>
         <tr>
+          <th>icon</th>
           <th>First Name</th>
           <th>Last Name</th>
           <th>Email</th>
+          <th>Phone</th>
           <th>Role</th>
         </tr>
       </thead>
 
       <tbody *ngFor="let user of users$ | async">
         <tr>
+          <td>
+            <img
+              *ngIf="user.photoUrl"
+              style="height: 50px"
+              [src]="'data:image/png;base64,' + user.photoUrl"
+              alt=""
+            />
+            <div *ngIf="!user.photoUrl">
+              {{ 'no icon' }}
+            </div>
+          </td>
+
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
           <td>{{ user.email }}</td>
+          <td>{{ user.phone }}</td>
           <td>{{ user.details.Role }}</td>
           <td>
             <button (click)="updateUser(user)" class="btn btn-info me-2">
