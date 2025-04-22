@@ -1,10 +1,10 @@
 {
-  "name": "angularmongoasp",
+  "name": "dotnet_ng_ui",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "echo Starting... && ng serve",
-    "build": "ng build",
+    "start": "ng serve",
+    "build": "ng build --configuration production",
     "build:ssr": "ng run dotnet_mongo_local_crud:server:dev",
     "test": "ng test",
     "lint": "ng lint",
