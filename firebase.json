@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/dotnet_ng_ui",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
