@@ -18,15 +18,16 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version:
+            '18'
+
+            # 4B. Сборка Angular-приложения через npx
+      - name: Build Angular app
+        run: npx ng build --configuration production
 
       # 3. Install npm-зависимости (включая devDependencies)
       - name: Install dependencies
         run: npm ci
-
-      # 4B. Сборка Angular-приложения через npx
-      - name: Build Angular app
-        run: npx ng build --configuration production
 
       # 5. Docker — логин и пуш образа
       - name: Log in to Docker Hub
