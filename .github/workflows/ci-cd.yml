@@ -10,53 +10,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout your repository
+      # 1. Checkout repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Set up Node.js for building Angular
+      # 2. Setup Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      # 3. Install dependencies
+      # 3. Install npm-зависимости (включая devDependencies)
       - name: Install dependencies
         run: npm ci
 
-      # 4. Build the Angular app
+      # 4B. Сборка Angular-приложения через npx
       - name: Build Angular app
-        run: npm run build -- --prod
+        run: npx ng build --configuration production
 
-      # 5. Log in to Docker Hub
+      # 5. Docker — логин и пуш образа
       - name: Log in to Docker Hub
         run: |
           echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login \
             --username "${{ secrets.DOCKERHUB_USERNAME }}" \
             --password-stdin
-
-      # 6. Build Docker image
       - name: Build Docker image
-        run: |
-          docker build \
-            -t "${{ secrets.DOCKERHUB_USERNAME }}/ng-dotnet-ui:${{ github.sha }}" \
-            .
-
-      # 7. Push Docker image
+        run: docker build -t "${{ secrets.DOCKERHUB_USERNAME }}/ng-dotnet-ui:${{ github.sha }}" .
       - name: Push Docker image
-        run: |
-          docker push "${{ secrets.DOCKERHUB_USERNAME }}/ng-dotnet-ui:${{ github.sha }}"
+        run: docker push "${{ secrets.DOCKERHUB_USERNAME }}/ng-dotnet-ui:${{ github.sha }}"
 
-      # 8. Install and configure Firebase CLI
+      # 6. Firebase Hosting — установка и деплой
       - name: Setup Firebase CLI
-        uses: w9jds/setup-firebase@main
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          tools-version: '14.2.0' # Можно указать нужную версию или опустить для latest
-          firebase_token: ${{ secrets.FIREBASE_TOKEN }}
-
-      # 9. Deploy to Firebase Hosting
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+          channelId: live
       - name: Deploy to Firebase Hosting
-        run: |
-          firebase deploy \
-            --project ng-dotnet \
-            --only hosting
+        run: firebase deploy --project ng-dotnet --only hosting --token "${{ secrets.FIREBASE_TOKEN }}"
