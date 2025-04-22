@@ -40,7 +40,7 @@ export interface IUsers {
   providedIn: 'root'
 })
 export class UsersService {
-  private url = environment.baseUrl + 'v1/users';
+  private url = environment.baseUrl + 'api/v1/users';
 
   constructor(private http: HttpClient) {}
 

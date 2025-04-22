@@ -7,10 +7,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class HomeService {
+  private url = environment.baseUrl + 'api/account/all';
 
-  private url = environment.baseUrl + 'account/all';
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public getIdentityUsers(): Observable<any> {
     return this.http.get<any>(this.url);

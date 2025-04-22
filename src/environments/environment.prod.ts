@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://localhost:5477/api/'
+  baseUrl: 'https://dotnet-postgresql-service-864171160719.us-central1.run.app/'
 };

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
+import { environment } from 'src/environments/environment';
 
 interface ChatMsg {
   user: string;
@@ -15,8 +16,9 @@ export class ChatComponent implements OnInit {
   public messages: string[] = [];
   public user = '';
   public message = '';
+
   private hubConnection = new signalR.HubConnectionBuilder()
-    .withUrl('http://localhost:5477/hubs/chat')
+    .withUrl(environment.baseUrl + 'hubs/chat')
     .build();
 
   ngOnInit(): void {
