@@ -22,7 +22,7 @@ jobs:
 
       # 3. Install npm-зависимости (включая devDependencies)
       - name: Install dependencies
-        run: npm ci
+        run: npm run i --force
 
       # 4B. Сборка Angular-приложения через npx
       - name: Build Angular app
