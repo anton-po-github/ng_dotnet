@@ -47,7 +47,7 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NG_DOTNET }}'
           channelId: live
       - name: Deploy to Firebase Hosting
         run: firebase deploy --project ng-dotnet --only hosting --token "${{ secrets.FIREBASE_TOKEN }}"
