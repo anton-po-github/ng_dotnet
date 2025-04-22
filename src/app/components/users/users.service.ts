@@ -51,14 +51,7 @@ export class UsersService {
       userUrl += params;
     }
 
-    let headers = new HttpHeaders();
-
-    headers = headers.set(
-      'Authorization',
-      `Bearer ${localStorage.getItem('postgre-token')}`
-    );
-
-    return this.http.get<Array<IUsers>>(userUrl, { headers });
+    return this.http.get<Array<IUsers>>(userUrl);
   }
 
   public addNewUser(newUser: INewUser): Observable<IUserCreatedDeleted> {
