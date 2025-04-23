@@ -42,7 +42,14 @@ export class BooksService {
   }
 
   public updateOneBook(bookId, newBook: IBook): Observable<IBook> {
-    return this.http.put<any>(this.booksUrl + `/${bookId}`, newBook);
+    const formData: FormData = new FormData();
+
+    formData.append('icon', newBook.icon);
+
+    delete newBook.id;
+    delete newBook.icon;
+
+    return this.http.put<any>(this.booksUrl + `/${bookId}`, formData);
   }
   // for a collection MyBooks
 

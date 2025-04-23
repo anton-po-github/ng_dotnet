@@ -21,7 +21,9 @@ export class ListUsersComponent implements OnInit {
   constructor(public usersService: UsersService, private router: Router) {}
 
   ngOnInit() {
-    this.onGetUsers(`?sort=name&pageIndex=${1}&pageSize=10`);
+    setTimeout(() => {
+      this.onGetUsers(`?sort=name&pageIndex=${1}&pageSize=10`);
+    }, 300);
   }
 
   public updateUser(user: IUsers): void {

@@ -53,8 +53,6 @@ export class AddUpdateBooksComponent implements OnInit {
   public addOneBook(): void {
     this.booksService.addOneBook(this.newMyBook).subscribe({
       next: (result: IBook) => {
-        console.log(result);
-
         if (result.id) {
           this.router.navigate(['/books']);
         }
@@ -72,8 +70,6 @@ export class AddUpdateBooksComponent implements OnInit {
   public updateOneBook(bookId: string): void {
     this.booksService.updateOneBook(bookId, this.newMyBook).subscribe({
       next: (result: IBook) => {
-        console.log(result);
-
         if (result.id) {
           this.router.navigate(['/books']);
         }

@@ -34,10 +34,10 @@ export class BooksComponent implements OnInit {
       .asObservable()
       .pipe(takeUntilDestroyed())
       .subscribe((value: boolean) => {
-        console.log(value);
-
         if (value) {
-          this.getAllBooks();
+          setTimeout(() => {
+            this.getAllBooks();
+          }, 300);
         }
       });
   }
