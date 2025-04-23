@@ -34,20 +34,22 @@ export class AccountService {
 
     headers = headers.set('Authorization', `Bearer ${token}`);
 
-    return this.http.get<IUser>(this.postgreUrl + 'account', { headers }).pipe(
-      map((user: IUser) => {
-        if (user) {
-          localStorage.setItem('postgre-token', user.token);
-          //localStorage.setItem('mongo-token', user.accessToken as any);
+    return this.http
+      .get<IUser>(this.postgreUrl + 'api/account/GetCurrentUser', { headers })
+      .pipe(
+        map((user: IUser) => {
+          if (user) {
+            localStorage.setItem('postgre-token', user.token);
+            //localStorage.setItem('mongo-token', user.accessToken as any);
 
-          this.currentUserSource.next(user);
+            this.currentUserSource.next(user);
 
-          return user;
-        } else {
-          return null;
-        }
-      })
-    );
+            return user;
+          } else {
+            return null;
+          }
+        })
+      );
   }
 
   login(values: any) {
@@ -59,8 +61,6 @@ export class AccountService {
           localStorage.setItem('postgre-token', any.token);
           // localStorage.setItem('mongo-token', any.accessToken);
 
-          console.log(any);
-
           // this.currentUserSource.next(any);
         })
       );
@@ -68,20 +68,16 @@ export class AccountService {
 
   register(values: any) {
     return this.http
-      .post<any>(this.postgreUrl + 'account/register', values)
+      .post<any>(this.postgreUrl + 'api/account/register', values)
       .pipe(
         map((any) => {
-          console.log(any);
-
-          //  localStorage.setItem('token', any.token);
-
           this.currentUserSource.next(any);
         })
       );
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('postgre-token');
 
     this.currentUserSource.next(null);
 

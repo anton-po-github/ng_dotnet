@@ -13,7 +13,11 @@ import { AccountService } from '../account/account.service';
 export class NavMenuComponent {
   public isExpanded = true;
 
-  constructor(public sharedService: SharedService, private accountService: AccountService, private router: Router){}
+  constructor(
+    public sharedService: SharedService,
+    private accountService: AccountService,
+    private router: Router
+  ) {}
 
   collapse() {
     this.isExpanded = false;
@@ -24,15 +28,12 @@ export class NavMenuComponent {
   }
 
   public loginLogout(): void {
-
     if (this.sharedService.token) {
-       // logout
+      // logout
       this.accountService.logout();
     } else {
       // login
-      this.router.navigate(["auth/login"])
+      this.router.navigate(['auth/login']);
     }
-
- 
   }
 }

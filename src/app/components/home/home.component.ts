@@ -8,24 +8,17 @@ import { HomeService } from './home.service';
   standalone: false
 })
 export class HomeComponent implements OnInit {
-
-  constructor(private homeService: HomeService){}
+  constructor(private homeService: HomeService) {}
 
   ngOnInit(): void {
     setTimeout(() => {
       this.homeService.getIdentityUsers().subscribe({
-        next: (result) => {
-          console.log(result);
-        },
+        next: (result) => {},
         error: (err) => {
           console.error(err);
         },
-        complete: () => {
-         // this.showLoader = false;
-        }
-      })
+        complete: () => {}
+      });
     }, 1000);
-
- 
   }
 }

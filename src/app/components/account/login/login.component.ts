@@ -31,9 +31,7 @@ export class LoginComponent {
   public onSubmit() {
     this.accountService.login(this.loginForm.value).subscribe({
       next: (result) => {
-        setTimeout(() => {
-          this.router.navigate(['users']);
-        }, 2000);
+        this.router.navigate(['users']);
       },
       error: (err) => {
         console.error(err);

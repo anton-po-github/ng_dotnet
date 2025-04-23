@@ -2,8 +2,8 @@
   <nav
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
   >
-    <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">my-NG</a>
+    <div class="container me-1">
+      <!--  <a class="navbar-brand" [routerLink]="['/']">NG</a> -->
       <button
         class="navbar-toggler"
         type="button"
@@ -50,7 +50,7 @@
             >
           </li>
 
-          <li class="nav-item cursor-pointer">
+          <li class="nav-item" style="cursor: pointer">
             <a class="nav-link text-dark" (click)="loginLogout()">
               {{ this.sharedService.token ? 'Logout' : 'Login' }}</a
             >

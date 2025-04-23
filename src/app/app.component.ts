@@ -9,9 +9,15 @@ import { AccountService } from './components/account/account.service';
 export class AppComponent implements OnInit {
   title = 'app';
 
-  constructor(private accountService: AccountService){}
- 
+  constructor(private accountService: AccountService) {}
+
   ngOnInit(): void {
-    this.accountService.loadCurrentUser(localStorage.getItem('postgre-token')).subscribe();
+    setTimeout(() => {
+      if (localStorage.getItem('postgre-token')) {
+        this.accountService
+          .loadCurrentUser(localStorage.getItem('postgre-token'))
+          .subscribe();
+      }
+    });
   }
 }

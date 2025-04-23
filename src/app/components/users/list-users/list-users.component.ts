@@ -80,18 +80,12 @@ export class ListUsersComponent implements OnInit {
           d.details = JSON.parse(d.details as string);
         });
 
-        //  result.
-
-        // console.log(result);
-
         this.usersSource.next(result.data);
       },
       error: (err) => {
         console.error(err);
       },
-      complete: () => {
-        // this.showLoader = false;
-      }
+      complete: () => {}
     });
   }
 }

@@ -1,18 +1,15 @@
 <div>
-  <h2 class="text-center">Users List</h2>
-
-  <div class="row">
-    <button class="btn btn-primary" [routerLink]="['/users/add-update-user']">
-      Add User
-    </button>
-  </div>
-
-  <br />
-
   <button class="btn btn-success me-2" (click)="nextPrevUsers('prev')">
     Prev
   </button>
-  <button class="btn btn-success" (click)="nextPrevUsers('next')">Next</button>
+
+  <button class="btn btn-success me-2" (click)="nextPrevUsers('next')">
+    Next
+  </button>
+
+  <button class="btn btn-primary" [routerLink]="['/users/add-update-user']">
+    Add User
+  </button>
 
   <br />
   <br />
