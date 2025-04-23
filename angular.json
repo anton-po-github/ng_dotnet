@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "progress": false,
-            "outputPath": "dist/dotnet_ng_ui",
+            "outputPath": "dist/ng_dotnet",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",

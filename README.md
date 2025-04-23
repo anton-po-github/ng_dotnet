@@ -1,4 +1,4 @@
-# dotnet_ng_ui
+# ng_dotnet
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 19.0.0.
 
