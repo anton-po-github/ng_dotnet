@@ -14,9 +14,10 @@ export interface IUser {
   providedIn: 'root'
 })
 export class AccountService {
-  postgreUrl = environment.baseUrl;
+  public bearerToken = '';
+  public postgreUrl = environment.baseUrl;
   // register in postman
-  mongoLoginUrl = 'http://localhost:5325/api/v1/authenticate/login';
+  public mongoLoginUrl = 'http://localhost:5325/api/v1/authenticate/login';
 
   private currentUserSource = new ReplaySubject<IUser | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
@@ -24,7 +25,7 @@ export class AccountService {
   constructor(private http: HttpClient, private router: Router) {}
 
   public loadCurrentUser(token: string | null) {
-    if (token == null) {
+    if (!token) {
       this.currentUserSource.next(null);
 
       return of(null);
@@ -40,6 +41,7 @@ export class AccountService {
         map((user: IUser) => {
           if (user) {
             localStorage.setItem('postgre-token', user.token);
+            this.bearerToken = user.token;
             //localStorage.setItem('mongo-token', user.accessToken as any);
 
             this.currentUserSource.next(user);
@@ -59,6 +61,8 @@ export class AccountService {
       .pipe(
         map((any) => {
           localStorage.setItem('postgre-token', any.token);
+
+          this.bearerToken = any.token;
           // localStorage.setItem('mongo-token', any.accessToken);
 
           // this.currentUserSource.next(any);

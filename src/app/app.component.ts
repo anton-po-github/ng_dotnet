@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AccountService } from './components/account/account.service';
 
 @Component({
@@ -6,18 +6,10 @@ import { AccountService } from './components/account/account.service';
   templateUrl: './app.component.html',
   standalone: false
 })
-export class AppComponent implements OnInit {
-  title = 'app';
-
-  constructor(private accountService: AccountService) {}
-
-  ngOnInit(): void {
-    setTimeout(() => {
-      if (localStorage.getItem('postgre-token')) {
-        this.accountService
-          .loadCurrentUser(localStorage.getItem('postgre-token'))
-          .subscribe();
-      }
-    });
+export class AppComponent {
+  constructor(private accountService: AccountService) {
+    this.accountService
+      .loadCurrentUser(localStorage.getItem('postgre-token'))
+      .subscribe();
   }
 }
