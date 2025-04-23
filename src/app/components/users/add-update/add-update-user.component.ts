@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { INewUser, IUsers, UsersService } from '../users.service';
+import { INewUser, UsersService } from '../users.service';
 import { Subscription } from 'rxjs';
 
 @Component({

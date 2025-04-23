@@ -4,7 +4,7 @@
   >
     <div class="container">
       <!-- Brand (optional) -->
-      <!-- <a class="navbar-brand" [routerLink]="['/']">NG</a> -->
+      <h2 class="navbar-brand" [routerLink]="['/']">NG & .NET</h2>
 
       <!-- Toggler -->
       <button
@@ -29,21 +29,23 @@
           >
             <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
           </li>
+
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/users']">Users</a>
           </li>
+
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
+              >Books</a
+            >
+          </li>
+
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/signalr-chat']"
               >Chat</a
             >
           </li>
-
-          <!--     <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
-              >Mongo-books</a
-            >
-          </li> 
-
+          <!-- 
             <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/az-blob-storage']"
               >Azure BS</a

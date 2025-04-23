@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../services/api.service';
+import { BooksService } from './books.service';
 import { Observable } from 'rxjs';
 
 export interface IBook {
@@ -15,11 +15,11 @@ export interface IBook {
 }
 
 @Component({
-  selector: 'app-fetch-data',
-  templateUrl: './fetch-data.component.html',
+  selector: 'app-books',
+  templateUrl: './books.component.html',
   standalone: false
 })
-export class FetchDataComponent implements OnInit {
+export class BooksComponent implements OnInit {
   public isEdit: boolean;
   public isMyEdit: boolean;
   public myFile: FormData;
@@ -43,7 +43,7 @@ export class FetchDataComponent implements OnInit {
     icon: null,
     iconId: null
   };
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: BooksService) {}
 
   ngOnInit() {
     this.getAllBooks();

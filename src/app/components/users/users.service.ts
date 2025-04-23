@@ -40,12 +40,12 @@ export interface IUsers {
   providedIn: 'root'
 })
 export class UsersService {
-  private url = environment.baseUrl + 'api/v1/users';
+  private usersUrl = environment.baseUrl + 'api/users';
 
   constructor(private http: HttpClient) {}
 
   public getUsers(params?: string): Observable<Array<IUsers>> {
-    let userUrl = this.url;
+    let userUrl = this.usersUrl;
 
     if (params) {
       userUrl += params;
@@ -55,7 +55,7 @@ export class UsersService {
   }
 
   public addNewUser(newUser: INewUser): Observable<IUserCreatedDeleted> {
-    return this.http.post<any>(this.url, this.getFormDataUser(newUser));
+    return this.http.post<any>(this.usersUrl, this.getFormDataUser(newUser));
   }
 
   public updateUser(
@@ -63,13 +63,13 @@ export class UsersService {
     newUser: INewUser
   ): Observable<IUserCreatedDeleted> {
     return this.http.put<any>(
-      this.url + '/' + id,
+      this.usersUrl + '/' + id,
       this.getFormDataUser(newUser)
     );
   }
 
   public deleteUser(id: string): Observable<IUserCreatedDeleted> {
-    return this.http.delete<any>(this.url + '/' + id);
+    return this.http.delete<any>(this.usersUrl + '/' + id);
   }
 
   private getFormDataUser(newUser: INewUser): FormData {

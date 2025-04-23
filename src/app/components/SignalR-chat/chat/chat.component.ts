@@ -31,7 +31,7 @@ export class ChatComponent implements OnInit {
       'NewMessageNotification',
       (user: string, message: string) => {
         if (user !== this.user) {
-          this.showNotification(`${user} sent: ${message}`);
+          this.showNotification(`${user} from: ${message}`);
         }
       }
     );

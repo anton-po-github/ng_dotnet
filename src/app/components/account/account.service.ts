@@ -16,8 +16,6 @@ export interface IUser {
 export class AccountService {
   public bearerToken = '';
   public postgreUrl = environment.baseUrl;
-  // register in postman
-  public mongoLoginUrl = 'http://localhost:5325/api/v1/authenticate/login';
 
   private currentUserSource = new ReplaySubject<IUser | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
@@ -55,7 +53,6 @@ export class AccountService {
   }
 
   login(values: any) {
-    // return this.http.post<any>(this.mongoLoginUrl, values).pipe(
     return this.http
       .post<any>(this.postgreUrl + 'api/account/login', values)
       .pipe(
