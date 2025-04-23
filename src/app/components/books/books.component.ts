@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BooksService } from './books.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export interface IBook {
   author: string;
@@ -25,93 +28,46 @@ export class BooksComponent implements OnInit {
   public myFile: FormData;
   public books$: Observable<Array<IBook>>;
   public myBooks$: Observable<Array<IBook>>;
-  public newBook: IBook = {
-    id: '',
-    bookName: 'bookName',
-    author: 'author',
-    category: 'category',
-    price: 123,
-    icon: null,
-    iconId: null
-  };
-  public newMyBook: IBook = {
-    id: null,
-    bookName: null,
-    author: null,
-    category: null,
-    price: null,
-    icon: null,
-    iconId: null
-  };
-  constructor(private apiService: BooksService) {}
 
-  ngOnInit() {
-    this.getAllBooks();
-  }
+  constructor(private booksService: BooksService, private router: Router) {
+    this.booksService.onGetAllBooks$
+      .asObservable()
+      .pipe(takeUntilDestroyed())
+      .subscribe((value: boolean) => {
+        console.log(value);
 
-  public deleteBook(bookId: string): void {
-    this.apiService.deleteBook(bookId).subscribe({
-      next: (result) => {
-        this.getAllBooks();
-      },
-      error: (err) => {
-        console.error(err);
-      },
-      complete: () => {}
-    });
-  }
-
-  public addOneBook(): void {
-    this.apiService.addOneBook(this.newBook).subscribe({
-      next: (result) => {
-        this.newBook = {
-          id: null,
-          bookName: null,
-          author: null,
-          category: null,
-          price: null,
-          icon: null,
-          iconId: null
-        };
-        this.getAllBooks();
-      },
-      error: (err) => {
-        console.error(err);
-      },
-      complete: () => {}
-    });
-  }
-
-  public updateOneBook(bookId: string): void {
-    this.apiService
-      .updateOneBook(bookId, this.newBook)
-
-      .subscribe({
-        next: (result) => {
-          this.newBook = {
-            id: null,
-            bookName: null,
-            author: null,
-            category: null,
-            price: null,
-            iconId: null,
-            icon: null
-          };
+        if (value) {
           this.getAllBooks();
-        },
-        error: (err) => {
-          console.error(err);
-        },
-        complete: () => {}
+        }
       });
   }
 
+  ngOnInit() {}
+
+  public updateBook(book: IBook): void {
+    this.router.navigate(['/books/add-update-book', book]);
+  }
+
+  public deleteBook(bookId: string): void {
+    this.booksService.deleteBook(bookId).subscribe({
+      next: (result: boolean) => {
+        if (result) {
+          this.getAllBooks();
+        }
+      },
+      error: (err) => {
+        console.error(err);
+      },
+      complete: () => {}
+    });
+  }
+
   private getAllBooks(): void {
-    this.books$ = this.apiService.getAllBooks();
+    this.books$ = this.booksService.getAllBooks();
   }
 
   public uploadFile(): void {
-    this.apiService
+    this.booksService
       .uploadFile(this.myFile)
 
       .subscribe({

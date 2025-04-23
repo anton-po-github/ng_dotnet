@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row">
+    <div class="card col-md-6 offset-md-3 offset-md-3">
+      <h3 class="text-center">
+        {{
+          this.route.snapshot.paramMap.get('bookName')
+            ? 'Update Book'
+            : 'Add Book'
+        }}
+      </h3>
+
+      <div class="card-body">
+        <form>
+          <div class="form-group mb-3">
+            <label> Book Name: </label>
+            <input
+              placeholder="Book Name"
+              [(ngModel)]="newMyBook.bookName"
+              name="firstName"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label> Category </label>
+            <input
+              placeholder="Category"
+              [(ngModel)]="newMyBook.category"
+              name="lastName"
+              class="form-control"
+            />
+          </div>
+
+          <div class="form-group mb-3">
+            <label> Price: </label>
+            <input
+              placeholder="Price"
+              [(ngModel)]="newMyBook.price"
+              name="email"
+              class="form-control"
+            />
+          </div>
+
+          <div class="form-group mb-3">
+            <label> Author: </label>
+            <input
+              placeholder="Price"
+              [(ngModel)]="newMyBook.author"
+              name="email"
+              class="form-control"
+            />
+          </div>
+
+          <div>
+            <app-upload (fileImage)="newMyBook.icon = $event" />
+          </div>
+
+          <button class="btn btn-success me-3" (click)="addUpdateUser()">
+            {{
+              this.route.snapshot.paramMap.get('bookName') ? 'Update' : 'Add'
+            }}
+          </button>
+
+          <button class="btn btn-danger" [routerLink]="['/books']">
+            Cancel
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

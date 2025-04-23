@@ -1,97 +1,50 @@
-<!-- <h3>for myFile Icon</h3>
-<app-upload (fileImage)="myFile = $event"></app-upload>
+<button class="btn btn-primary" [routerLink]="['/books/add-update-book']">
+  Add Book
+</button>
 
-<button (click)="uploadFile()">UPLOAD</button> -->
-<!-- <br />
 <br />
-<h1>CRUD for Books</h1>
- -->
-<div class="form-group" *ngFor="let book of books$ | async">
-  <img
-    style="height: 50px"
-    [src]="'data:image/png;base64,' + book.iconPath"
-    alt=""
-  />
-  <div>
-    {{ 'Id: ' + book.id }}
-  </div>
+<br />
 
-  <div>
-    {{ 'Book Name: ' + book.bookName }}
-  </div>
+<div class="row">
+  <table class="table table-striped table-bordered" style="min-width: 1000px">
+    <thead>
+      <tr>
+        <th>Icon</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Author</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
 
-  <div>
-    {{ 'Category: ' + book.category }}
-  </div>
+    <tbody *ngFor="let book of books$ | async">
+      <tr>
+        <td>
+          <div *ngIf="!book.iconPath">
+            {{ 'no icon' }}
+          </div>
 
-  <div>
-    {{ 'Price: ' + book.price }}
-  </div>
+          <img
+            style="height: 50px"
+            [src]="'data:image/png;base64,' + book.iconPath"
+            alt=""
+          />
+        </td>
 
-  <div>
-    {{ 'Author: ' + book.author }}
-  </div>
-
-  <br />
-
-  <div class="mb-3">
-    <button (click)="deleteBook(book.id)">delele</button>
-    <button
-      (click)="
-        isEdit = !isEdit;
-        newBook.id = book.id;
-        newBook.bookName = book.bookName;
-        newBook.category = book.category;
-        newBook.author = book.author;
-        newBook.price = book.price
-      "
-    >
-      to update
-    </button>
-  </div>
+        <td>{{ book.bookName }}</td>
+        <td>{{ book.category }}</td>
+        <td>{{ book.price }}</td>
+        <td>{{ book.author }}</td>
+        <td>
+          <button (click)="updateBook(book)" class="btn btn-info me-2">
+            Update
+          </button>
+          <button (click)="deleteBook(book.id)" class="btn btn-danger me-2">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-
-<br />
-<h3>for newBook Icon</h3>
-<app-upload (fileImage)="newBook.icon = $event" />
-
-<div class="form-group">
-  <label>bookName</label>
-  <input class="form-control" [(ngModel)]="newBook.bookName" type="text" />
-  <label>category</label>
-  <input class="form-control" [(ngModel)]="newBook.category" type="text" />
-  <label>author</label>
-  <input class="form-control" [(ngModel)]="newBook.author" type="text" />
-  <label>price</label>
-  <input class="form-control" [(ngModel)]="newBook.price" type="number" />
-  <button (click)="addOneBook()">add New Book</button>
-  <button (click)="updateOneBook(newBook.id)" *ngIf="isEdit">update</button>
-</div>
-
-<br />
-<br />
-
-<!-- <h1>CRUD for MY Books</h1>
-
-<div class="form-group" *ngFor="let book of myBooks$ | async">
-  {{ book.id }}
-  {{ book.bookName }}
-  {{ book.category }}
-  {{ book.price }}
-  {{ book.author }}
-  <button (click)="deleteMyBook(book.id)">delele</button>
-  <button (click)="isMyEdit = !isMyEdit; newMyBook.id = book.id; newMyBook.bookName = book.bookName; newMyBook.category = book.category; newMyBook.author = book.author; newMyBook.price = book.price;">to update</button>
-</div>
-
-<div class="form-group">
-  <label>bookName</label>
-  <input class="form-control" [(ngModel)]="newMyBook.bookName" type="text">
-  <label>category</label>
-  <input class="form-control" [(ngModel)]="newMyBook.category" type="text">
-  <label>author</label>
-  <input class="form-control" [(ngModel)]="newMyBook.author" type="text">
-  <label>price</label>
-  <input class="form-control" [(ngModel)]="newMyBook.price" type="number">
-  <button (click)="addOneMyBook()">add New Book</button>
-  <button (click)="updateOneMyBook(newMyBook.id)" *ngIf="isMyEdit">update</button>
-</div> -->

@@ -7,18 +7,17 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   standalone: false
 })
 export class UploadComponent implements OnInit {
+  @Output() fileImage = new EventEmitter<File>();
 
-  @Output() fileImage: EventEmitter<File> = new EventEmitter();
   public progress: number;
   public message: string;
-  constructor(
-  ) { }
+  constructor() {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   public upload(event) {
     this.fileImage.emit(event.target.files[0]);
-    
+
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => {

@@ -17,7 +17,6 @@ import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { ChatComponent } from './components/SignalR-chat/chat/chat.component';
-import { BooksComponent } from './components/books/books.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { BlobStorageComponent } from './components/blob-storage/blob-storage.component';
 
@@ -27,7 +26,6 @@ import { BlobStorageComponent } from './components/blob-storage/blob-storage.com
     NavMenuComponent,
     ChatComponent,
     HomeComponent,
-    BooksComponent,
     BlobStorageComponent
   ],
   imports: [
@@ -36,9 +34,14 @@ import { BlobStorageComponent } from './components/blob-storage/blob-storage.com
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'fetch-data', component: BooksComponent },
       { path: 'signalr-chat', component: ChatComponent },
       { path: 'az-blob-storage', component: BlobStorageComponent },
+
+      {
+        path: 'books',
+        loadChildren: () =>
+          import('./components/books/books.module').then((m) => m.BooksModule)
+      },
 
       {
         path: 'users',
