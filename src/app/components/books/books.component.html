@@ -1,4 +1,4 @@
-<div *ngIf="!this.sharedService.isLoadingData">
+<div>
   <button class="btn btn-primary" [routerLink]="['/books/add-update-book']">
     Add Book
   </button>
@@ -50,5 +50,3 @@
     </table>
   </div>
 </div>
-
-<app-spinner *ngIf="this.sharedService.isLoadingData" />

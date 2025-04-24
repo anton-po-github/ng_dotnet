@@ -1,4 +1,4 @@
-<div *ngIf="this.sharedService.isLoadingData">
+<div>
   <button class="btn btn-success me-2" (click)="nextPrevUsers('prev')">
     Prev
   </button>
@@ -74,5 +74,3 @@
     </table>
   </div>
 </div>
-
-<app-spinner *ngIf="this.sharedService.isLoadingData" />

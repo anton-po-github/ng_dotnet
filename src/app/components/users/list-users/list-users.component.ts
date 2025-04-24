@@ -27,7 +27,6 @@ export class ListUsersComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      this.sharedService.isLoadingData = true;
       this.onGetUsers(`?sort=name&pageIndex=${1}&pageSize=10`);
     }, 300);
   }
@@ -40,7 +39,6 @@ export class ListUsersComponent implements OnInit {
     this.usersService.deleteUser(id).subscribe({
       next: (result) => {
         if (result.message === 'User deleted') {
-          this.sharedService.isLoadingData = true;
           this.onGetUsers();
         }
       },
@@ -61,7 +59,7 @@ export class ListUsersComponent implements OnInit {
     if (this.searchUsers) {
       paramsUsers += `&search=${this.searchUsers}`;
     }
-    this.sharedService.isLoadingData = true;
+
     this.onGetUsers(paramsUsers);
   }
 
@@ -75,8 +73,6 @@ export class ListUsersComponent implements OnInit {
     }
 
     let paramsUsers = `?sort=name&pageIndex=${pageIndex}&pageSize=10`;
-
-    this.sharedService.isLoadingData = true;
 
     this.onGetUsers(paramsUsers);
   }
@@ -92,14 +88,9 @@ export class ListUsersComponent implements OnInit {
         });
 
         this.usersSource.next(result.data);
-
-        setTimeout(() => {
-          this.sharedService.isLoadingData = false;
-        });
       },
       error: (err) => {
         console.error(err);
-        this.sharedService.isLoadingData = false;
       },
       complete: () => {}
     });
