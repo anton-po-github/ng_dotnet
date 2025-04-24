@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { IUsers, IUsersData, UsersService } from '../users.service';
 import { Router } from '@angular/router';
+import { SharedService } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-list-users',
@@ -18,10 +19,15 @@ export class ListUsersComponent implements OnInit {
 
   private resultIUsers = {} as IUsers;
 
-  constructor(public usersService: UsersService, private router: Router) {}
+  constructor(
+    public usersService: UsersService,
+    public sharedService: SharedService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     setTimeout(() => {
+      this.sharedService.isLoadingData = true;
       this.onGetUsers(`?sort=name&pageIndex=${1}&pageSize=10`);
     }, 300);
   }
@@ -34,6 +40,7 @@ export class ListUsersComponent implements OnInit {
     this.usersService.deleteUser(id).subscribe({
       next: (result) => {
         if (result.message === 'User deleted') {
+          this.sharedService.isLoadingData = true;
           this.onGetUsers();
         }
       },
@@ -54,7 +61,7 @@ export class ListUsersComponent implements OnInit {
     if (this.searchUsers) {
       paramsUsers += `&search=${this.searchUsers}`;
     }
-
+    this.sharedService.isLoadingData = true;
     this.onGetUsers(paramsUsers);
   }
 
@@ -68,6 +75,8 @@ export class ListUsersComponent implements OnInit {
     }
 
     let paramsUsers = `?sort=name&pageIndex=${pageIndex}&pageSize=10`;
+
+    this.sharedService.isLoadingData = true;
 
     this.onGetUsers(paramsUsers);
   }
@@ -83,9 +92,14 @@ export class ListUsersComponent implements OnInit {
         });
 
         this.usersSource.next(result.data);
+
+        setTimeout(() => {
+          this.sharedService.isLoadingData = false;
+        });
       },
       error: (err) => {
         console.error(err);
+        this.sharedService.isLoadingData = false;
       },
       complete: () => {}
     });

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SharedService } from '../shared/shared.service';
 
 export interface IBook {
   author: string;
@@ -29,7 +30,11 @@ export class BooksComponent implements OnInit {
   public books$: Observable<Array<IBook>>;
   public myBooks$: Observable<Array<IBook>>;
 
-  constructor(private booksService: BooksService, private router: Router) {
+  constructor(
+    private booksService: BooksService,
+    public sharedService: SharedService,
+    private router: Router
+  ) {
     this.booksService.onGetAllBooks$
       .asObservable()
       .pipe(takeUntilDestroyed())
