@@ -34,7 +34,7 @@ export class AccountService {
     headers = headers.set('Authorization', `Bearer ${token}`);
 
     return this.http
-      .get<IUser>(this.postgreUrl + 'api/account/GetCurrentUser', { headers })
+      .get<IUser>(this.postgreUrl + 'api/account/current', { headers })
       .pipe(
         map((user: IUser) => {
           if (user) {
