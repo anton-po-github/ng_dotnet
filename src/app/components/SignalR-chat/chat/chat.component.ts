@@ -24,7 +24,7 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.hubConnection
       .start()
-      .then(() => console.log('SignalR connected'))
+      .then(() => console.warn('SignalR connected'))
       .catch((err) => console.error(err));
 
     this.hubConnection.on(

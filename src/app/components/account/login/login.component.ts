@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AccountService } from '../account.service';
+import { SharedService } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +19,16 @@ export class LoginComponent {
 
   constructor(
     private accountService: AccountService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    private sharedService: SharedService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
     this.returnUrl =
       this.activatedRoute.snapshot.queryParams['returnUrl'] || '/shop';
+
+    if (router.url === '/auth/login' && this.sharedService.postgreToken) {
+      this.router.navigate(['']);
+    }
   }
 
   public goToRegister(): void {
@@ -32,7 +38,7 @@ export class LoginComponent {
   public onSubmit() {
     this.accountService.login(this.loginForm.value).subscribe({
       next: (result) => {
-        this.router.navigate(['users']);
+        this.router.navigate(['']);
       },
       error: (err) => {
         console.error(err);

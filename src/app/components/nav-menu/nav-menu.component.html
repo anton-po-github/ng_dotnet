@@ -23,6 +23,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto">
           <li
+            *ngIf="this.sharedService.postgreToken"
             class="nav-item"
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
@@ -30,29 +31,46 @@
             <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
           </li>
 
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li
+            *ngIf="this.sharedService.postgreToken"
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+          >
             <a class="nav-link text-dark" [routerLink]="['/users']">Users</a>
           </li>
 
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li
+            *ngIf="this.sharedService.postgreToken"
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+          >
             <a class="nav-link text-dark" [routerLink]="['/books']">Books</a>
           </li>
 
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li
+            *ngIf="this.sharedService.postgreToken"
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+          >
             <a class="nav-link text-dark" [routerLink]="['/signalr-chat']"
               >Chat</a
             >
           </li>
+
           <!-- 
-            <li class="nav-item" [routerLinkActive]="['link-active']">
+            <li *ngIf="this.sharedService.postgreToken" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/az-blob-storage']"
               >Azure BS</a
             >
           </li>  -->
 
-          <li class="nav-item" style="cursor: pointer">
+          <li
+            *ngIf="router.url !== '/auth/login'"
+            class="nav-item"
+            style="cursor: pointer"
+          >
             <a class="nav-link text-dark" (click)="loginLogout()">
-              {{ sharedService.token ? 'Logout' : 'Login' }}
+              {{ sharedService.postgreToken ? 'Logout' : 'Login' }}
             </a>
           </li>
         </ul>

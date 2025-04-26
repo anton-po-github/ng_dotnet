@@ -4,5 +4,5 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SharedService {
-  public token = localStorage.getItem('postgre-token');
+  public postgreToken = localStorage.getItem('postgre-token');
 }

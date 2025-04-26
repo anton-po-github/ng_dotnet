@@ -14,9 +14,9 @@ export class NavMenuComponent {
   public isExpanded = true;
 
   constructor(
+    public router: Router,
     public sharedService: SharedService,
-    private accountService: AccountService,
-    private router: Router
+    private accountService: AccountService
   ) {}
 
   collapse() {
@@ -28,8 +28,9 @@ export class NavMenuComponent {
   }
 
   public loginLogout(): void {
-    if (this.sharedService.token) {
+    if (this.sharedService.postgreToken) {
       // logout
+      this.sharedService.postgreToken = '';
       this.accountService.logout();
     } else {
       // login

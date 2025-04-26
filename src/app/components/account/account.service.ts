@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, of, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { SharedService } from '../shared/shared.service';
 
 export interface IUser {
   email: string;
   userName: string;
   token: string;
+  role: string[];
 }
 
 @Injectable({
@@ -20,7 +22,11 @@ export class AccountService {
   private currentUserSource = new ReplaySubject<IUser | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private sharedService: SharedService
+  ) {}
 
   public loadCurrentUser(token: string | null) {
     if (!token) {
@@ -52,22 +58,19 @@ export class AccountService {
       );
   }
 
-  login(values: any) {
+  public login(values: any) {
     return this.http
-      .post<any>(this.postgreUrl + 'api/account/login', values)
+      .post<IUser>(this.postgreUrl + 'api/account/login', values)
       .pipe(
-        map((any) => {
-          localStorage.setItem('postgre-token', any.token);
+        map((user) => {
+          localStorage.setItem('postgre-token', user.token);
 
-          this.bearerToken = any.token;
-          // localStorage.setItem('mongo-token', any.accessToken);
-
-          // this.currentUserSource.next(any);
+          this.sharedService.postgreToken = user.token;
         })
       );
   }
 
-  register(values: any) {
+  public register(values: any) {
     return this.http
       .post<any>(this.postgreUrl + 'api/account/register', values)
       .pipe(
@@ -77,7 +80,7 @@ export class AccountService {
       );
   }
 
-  logout() {
+  public logout() {
     localStorage.removeItem('postgre-token');
 
     this.currentUserSource.next(null);
@@ -85,17 +88,17 @@ export class AccountService {
     this.router.navigateByUrl('auth/login');
   }
 
-  checkEmailExists(email: string) {
+  public checkEmailExists(email: string) {
     return this.http.get<boolean>(
       this.postgreUrl + 'account/emailExists?email=' + email
     );
   }
 
-  getanyAddress() {
+  public getanyAddress() {
     return this.http.get<any>(this.postgreUrl + 'account/address');
   }
 
-  updateanyAddress(address: any) {
+  public updateanyAddress(address: any) {
     return this.http.put(this.postgreUrl + 'account/address', address);
   }
 }
