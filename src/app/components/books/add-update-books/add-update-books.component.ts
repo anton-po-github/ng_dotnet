@@ -1,9 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { IBook } from '../books.component';
 import { BooksService } from '../books.service';
-import { SharedService } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-add-update-books',
@@ -26,7 +25,6 @@ export class AddUpdateBooksComponent implements OnInit {
   constructor(
     private router: Router,
     public route: ActivatedRoute,
-    public sharedService: SharedService,
     private booksService: BooksService
   ) {}
 

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { AccountService } from '../account.service';
-import { SharedService } from '../../shared/shared.service';
+import { AuthService, ILoginForm } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,22 +10,13 @@ import { SharedService } from '../../shared/shared.service';
   standalone: false
 })
 export class LoginComponent {
-  loginForm = new FormGroup({
+  public loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
   });
-  returnUrl: string;
 
-  constructor(
-    private accountService: AccountService,
-    private sharedService: SharedService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
-  ) {
-    this.returnUrl =
-      this.activatedRoute.snapshot.queryParams['returnUrl'] || '/shop';
-
-    if (router.url === '/auth/login' && this.sharedService.postgreToken) {
+  constructor(private authService: AuthService, private router: Router) {
+    if (router.url === '/auth/login' && this.authService.accessToken) {
       this.router.navigate(['']);
     }
   }
@@ -36,7 +26,7 @@ export class LoginComponent {
   }
 
   public onSubmit() {
-    this.accountService.login(this.loginForm.value).subscribe({
+    this.authService.login(this.loginForm.value as ILoginForm).subscribe({
       next: (result) => {
         this.router.navigate(['']);
       },

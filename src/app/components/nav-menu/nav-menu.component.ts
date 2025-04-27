@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
-import { SharedService } from '../shared/shared.service';
 import { Router } from '@angular/router';
-import { AccountService } from '../account/account.service';
+
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -13,11 +13,7 @@ import { AccountService } from '../account/account.service';
 export class NavMenuComponent {
   public isExpanded = true;
 
-  constructor(
-    public router: Router,
-    public sharedService: SharedService,
-    private accountService: AccountService
-  ) {}
+  constructor(public router: Router, public authService: AuthService) {}
 
   collapse() {
     this.isExpanded = false;
@@ -28,10 +24,10 @@ export class NavMenuComponent {
   }
 
   public loginLogout(): void {
-    if (this.sharedService.postgreToken) {
+    if (this.authService.accessToken) {
       // logout
-      this.sharedService.postgreToken = '';
-      this.accountService.logout();
+      this.router.navigate(['auth/login']);
+      this.authService.logout();
     } else {
       // login
       this.router.navigate(['auth/login']);

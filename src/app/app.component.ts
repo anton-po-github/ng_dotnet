@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AccountService } from './components/account/account.service';
+
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,12 +8,8 @@ import { Router } from '@angular/router';
   standalone: false
 })
 export class AppComponent {
-  constructor(private accountService: AccountService, private router: Router) {
-    if (localStorage.getItem('postgre-token')) {
-      this.accountService
-        .loadCurrentUser(localStorage.getItem('postgre-token'))
-        .subscribe();
-    } else {
+  constructor(private router: Router) {
+    if (!localStorage.getItem('accessToken')) {
       this.router.navigateByUrl('auth/login');
     }
   }

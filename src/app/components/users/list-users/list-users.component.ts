@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { IUsers, IUsersData, UsersService } from '../users.service';
 import { Router } from '@angular/router';
-import { SharedService } from '../../shared/shared.service';
 
 @Component({
   selector: 'app-list-users',
@@ -19,11 +18,7 @@ export class ListUsersComponent implements OnInit {
 
   private resultIUsers = {} as IUsers;
 
-  constructor(
-    public usersService: UsersService,
-    public sharedService: SharedService,
-    private router: Router
-  ) {}
+  constructor(public usersService: UsersService, private router: Router) {}
 
   ngOnInit() {
     setTimeout(() => {

@@ -52,9 +52,7 @@ import { BlobStorageComponent } from './components/blob-storage/blob-storage.com
       {
         path: 'auth',
         loadChildren: () =>
-          import('./components/account/account.module').then(
-            (m) => m.AccountModule
-          )
+          import('./components/auth/auth.module').then((m) => m.AuthModule)
       }
     ])
   ],

@@ -1,31 +1,22 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor
-} from '@angular/common/http';
+import { HttpInterceptor } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
-import { AccountService } from '../components/account/account.service';
+import { AuthService } from '../components/auth/auth.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  constructor(private accountService: AccountService) {}
+  constructor(private auth: AuthService) {}
 
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
-    // this is a working code, but when UI works with mongo and postgres at the same time, then the token must be different to receive data
-    if (this.accountService.bearerToken) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${this.accountService.bearerToken}`
-        }
-      });
+  intercept(req, next) {
+    if (req.url.endsWith('/api/account/refresh')) {
+      return next.handle(req);
     }
 
-    return next.handle(request);
+    const token = this.auth.getAccessToken();
+
+    const authReq = req.clone({
+      setHeaders: { Authorization: `Bearer ${token}` }
+    });
+    return next.handle(authReq);
   }
 }

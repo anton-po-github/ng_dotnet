@@ -4,7 +4,9 @@
   >
     <div class="container">
       <!-- Brand (optional) -->
-      <h2 class="navbar-brand" [routerLink]="['/']">NG & .NET</h2>
+      <h2 class="navbar-brand" [routerLink]="['/']" style="cursor: pointer">
+        NG & .NET
+      </h2>
 
       <!-- Toggler -->
       <button
@@ -23,7 +25,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto">
           <li
-            *ngIf="this.sharedService.postgreToken"
+            *ngIf="this.authService.accessToken"
             class="nav-item"
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
@@ -32,7 +34,7 @@
           </li>
 
           <li
-            *ngIf="this.sharedService.postgreToken"
+            *ngIf="this.authService.accessToken"
             class="nav-item"
             [routerLinkActive]="['link-active']"
           >
@@ -40,7 +42,7 @@
           </li>
 
           <li
-            *ngIf="this.sharedService.postgreToken"
+            *ngIf="this.authService.accessToken"
             class="nav-item"
             [routerLinkActive]="['link-active']"
           >
@@ -48,7 +50,7 @@
           </li>
 
           <li
-            *ngIf="this.sharedService.postgreToken"
+            *ngIf="this.authService.accessToken"
             class="nav-item"
             [routerLinkActive]="['link-active']"
           >
@@ -70,7 +72,7 @@
             style="cursor: pointer"
           >
             <a class="nav-link text-dark" (click)="loginLogout()">
-              {{ sharedService.postgreToken ? 'Logout' : 'Login' }}
+              {{ this.authService.accessToken ? 'Logout' : 'Login' }}
             </a>
           </li>
         </ul>
