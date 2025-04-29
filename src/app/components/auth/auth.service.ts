@@ -75,8 +75,6 @@ export class AuthService {
 
   // 3) Реальный вызов обновления
   public refresh() {
-    console.log('refresh');
-
     const currentAccess = this.accessToken$.value;
 
     return this.http
@@ -134,8 +132,6 @@ export class AuthService {
     if (this.refreshSub) this.refreshSub.unsubscribe();
 
     const token = this.accessToken$.value!;
-
-    console.log(token);
 
     const expDate = jwtDecode<{ exp: number }>(token).exp * 1000; // exp в секундах → мс :contentReference[oaicite:5]{index=5}
     const now = Date.now();

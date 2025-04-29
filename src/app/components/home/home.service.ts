@@ -7,11 +7,11 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class HomeService {
-  private url = environment.baseUrl + 'api/account/all';
+  private url = environment.baseUrl + 'api/account';
 
   constructor(private http: HttpClient) {}
 
   public getIdentityUsers(): Observable<any> {
-    return this.http.get<any>(this.url);
+    return this.http.get<any>(this.url + '/current');
   }
 }

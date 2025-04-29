@@ -11,17 +11,7 @@ import { AuthService } from '../auth/auth.service';
   standalone: false
 })
 export class NavMenuComponent {
-  public isExpanded = true;
-
   constructor(public router: Router, public authService: AuthService) {}
-
-  collapse() {
-    this.isExpanded = false;
-  }
-
-  toggle() {
-    this.isExpanded = !this.isExpanded;
-  }
 
   public loginLogout(): void {
     if (this.authService.accessToken) {
