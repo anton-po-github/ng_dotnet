@@ -7,7 +7,9 @@ import {
   Subscription,
   switchMap,
   tap,
-  map
+  map,
+  catchError,
+  EMPTY
 } from 'rxjs';
 
 import { jwtDecode } from 'jwt-decode';
@@ -127,8 +129,25 @@ export class AuthService {
     if (this.refreshSub) this.refreshSub.unsubscribe();
   }
 
-  // 5) Планируем обновление за 2 минуты до exp
   private scheduleRefresh() {
+    if (this.refreshSub) this.refreshSub.unsubscribe();
+
+    const token = this.accessToken$.value!;
+    const expDate = jwtDecode<{ exp: number }>(token).exp * 1000;
+    const ahead = expDate - Date.now() - 2 * 60 * 1000;
+
+    this.refreshSub = timer(Math.max(ahead, 0))
+      .pipe(
+        switchMap(() => this.refresh()),
+        catchError((err) => {
+          console.error('Авто-refresh упал:', err);
+          return EMPTY; // не разрываем стрим
+        })
+      )
+      .subscribe();
+  }
+
+  /*  private scheduleRefresh() {
     if (this.refreshSub) this.refreshSub.unsubscribe();
 
     const token = this.accessToken$.value!;
@@ -140,5 +159,5 @@ export class AuthService {
     this.refreshSub = timer(Math.max(ahead, 0))
       .pipe(switchMap(() => this.refresh()))
       .subscribe();
-  }
+  } */
 }

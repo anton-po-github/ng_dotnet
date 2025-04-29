@@ -8,9 +8,19 @@ export class JwtInterceptor implements HttpInterceptor {
   constructor(private auth: AuthService) {}
 
   intercept(req, next) {
-    if (req.url.endsWith('/api/account/refresh')) {
+    const publicPaths = [
+      '/api/account/login',
+      '/api/account/register',
+      '/api/account/emailexists',
+      '/api/account/refresh'
+    ];
+    if (publicPaths.some((p) => req.url.endsWith(p))) {
       return next.handle(req);
     }
+
+    /*  if (req.url.endsWith('/api/account/refresh')) {
+      return next.handle(req);
+    } */
 
     const token = this.auth.getAccessToken();
 
