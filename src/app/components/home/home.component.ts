@@ -9,9 +9,7 @@ import { HomeService } from './home.service';
 export class HomeComponent {
   constructor(private homeService: HomeService) {
     this.homeService.getIdentityUsers().subscribe({
-      next: (result) => {
-        console.log(result);
-      },
+      next: (result) => {},
       error: (err) => {
         console.error(err);
       },

@@ -1,32 +1,49 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor } from '@angular/common/http';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest
+} from '@angular/common/http';
 
 import { AuthService } from '../components/auth/auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
+  private publicPaths = [
+    '/api/account/login',
+    '/api/account/register',
+    '/api/account/emailexists',
+    '/api/account/refresh'
+  ];
+
   constructor(private auth: AuthService) {}
 
-  intercept(req, next) {
-    const publicPaths = [
-      '/api/account/login',
-      '/api/account/register',
-      '/api/account/emailexists',
-      '/api/account/refresh'
-    ];
-    if (publicPaths.some((p) => req.url.endsWith(p))) {
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    // Если URL в списке public — просто дальше
+    if (this.publicPaths.some((p) => req.url.endsWith(p))) {
       return next.handle(req);
     }
 
-    /*  if (req.url.endsWith('/api/account/refresh')) {
-      return next.handle(req);
-    } */
-
+    // Иначе берём токен и, если он есть, клонируем запрос с заголовком
     const token = this.auth.getAccessToken();
+    if (token) {
+      req = req.clone({
+        setHeaders: { Authorization: `Bearer ${token}` }
+      });
+    }
 
-    const authReq = req.clone({
-      setHeaders: { Authorization: `Bearer ${token}` }
-    });
-    return next.handle(authReq);
+    console.log(
+      'JWT Interceptor — URL:',
+      req.url,
+      'Token:',
+      this.auth.getAccessToken()
+    );
+
+    return next.handle(req);
   }
 }
