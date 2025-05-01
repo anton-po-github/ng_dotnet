@@ -37,13 +37,6 @@ export class JwtInterceptor implements HttpInterceptor {
       });
     }
 
-    console.log(
-      'JWT Interceptor — URL:',
-      req.url,
-      'Token:',
-      this.auth.getAccessToken()
-    );
-
     return next.handle(req);
   }
 }

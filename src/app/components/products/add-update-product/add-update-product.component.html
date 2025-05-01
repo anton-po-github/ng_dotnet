@@ -3,29 +3,39 @@
     <div class="card col-md-6 offset-md-3 offset-md-3">
       <h3 class="text-center">
         {{
-          this.route.snapshot.paramMap.get('bookName')
-            ? 'Update Book'
-            : 'Add Book'
+          this.route.snapshot.paramMap.get('productName')
+            ? 'Update Product'
+            : 'Add Product'
         }}
       </h3>
 
       <div class="card-body">
         <form>
           <div class="form-group mb-3">
-            <label> Book Name: </label>
+            <label> Product Name: </label>
             <input
-              placeholder="Book Name"
-              [(ngModel)]="newMyBook.bookName"
+              placeholder="Product Name"
+              [(ngModel)]="newMyProduct.productName"
               name="firstName"
               class="form-control"
             />
           </div>
           <div class="form-group mb-3">
-            <label> Category </label>
+            <label> Product desc: </label>
             <input
-              placeholder="Category"
-              [(ngModel)]="newMyBook.category"
+              placeholder="Product desc"
+              [(ngModel)]="newMyProduct.productDescription"
               name="lastName"
+              class="form-control"
+            />
+          </div>
+
+          <div class="form-group mb-3">
+            <label> Discount: </label>
+            <input
+              placeholder="Discount"
+              [(ngModel)]="newMyProduct.discount"
+              name="email"
               class="form-control"
             />
           </div>
@@ -34,29 +44,15 @@
             <label> Price: </label>
             <input
               placeholder="Price"
-              [(ngModel)]="newMyBook.price"
+              [(ngModel)]="newMyProduct.price"
               name="email"
               class="form-control"
             />
           </div>
 
-          <div class="form-group mb-3">
-            <label> Author: </label>
-            <input
-              placeholder="Price"
-              [(ngModel)]="newMyBook.author"
-              name="email"
-              class="form-control"
-            />
-          </div>
-
-          <div>
-            <app-upload (fileImage)="newMyBook.icon = $event" />
-          </div>
-
-          <button class="btn btn-success me-3" (click)="addUpdateBook()">
+          <button class="btn btn-success me-3" (click)="addUpdateProduct()">
             {{
-              this.route.snapshot.paramMap.get('bookName') ? 'Update' : 'Add'
+              this.route.snapshot.paramMap.get('productName') ? 'Update' : 'Add'
             }}
           </button>
 

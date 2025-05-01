@@ -44,6 +44,14 @@ import { BlobStorageComponent } from './components/blob-storage/blob-storage.com
       },
 
       {
+        path: 'products',
+        loadChildren: () =>
+          import('./components/products/products.module').then(
+            (m) => m.ProductsModule
+          )
+      },
+
+      {
         path: 'users',
         loadChildren: () =>
           import('./components/users/users.module').then((m) => m.UsersModule)

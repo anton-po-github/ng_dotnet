@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BooksService } from './books.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -22,7 +22,7 @@ export interface IBook {
   templateUrl: './books.component.html',
   standalone: false
 })
-export class BooksComponent implements OnInit {
+export class BooksComponent {
   public isEdit: boolean;
   public isMyEdit: boolean;
   public myFile: FormData;
@@ -41,8 +41,6 @@ export class BooksComponent implements OnInit {
         }
       });
   }
-
-  ngOnInit() {}
 
   public updateBook(book: IBook): void {
     this.router.navigate(['/books/add-update-book', book]);

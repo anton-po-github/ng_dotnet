@@ -10,8 +10,6 @@ import { BooksService } from '../books.service';
   standalone: false
 })
 export class AddUpdateBooksComponent implements OnInit {
-  public titleAddUpdateBook = '';
-
   public newMyBook: IBook = {
     id: null,
     bookName: null,
@@ -35,14 +33,10 @@ export class AddUpdateBooksComponent implements OnInit {
       this.newMyBook.category = this.route.snapshot.paramMap.get('category');
       this.newMyBook.author = this.route.snapshot.paramMap.get('author');
       this.newMyBook.id = this.route.snapshot.paramMap.get('id');
-
-      this.titleAddUpdateBook = 'Update Book';
-    } else {
-      this.titleAddUpdateBook = 'Add Book';
     }
   }
 
-  public addUpdateUser(): void {
+  public addUpdateBook(): void {
     if (this.route.snapshot.paramMap.get('bookName')) {
       this.updateOneBook(this.newMyBook.id);
     } else {
