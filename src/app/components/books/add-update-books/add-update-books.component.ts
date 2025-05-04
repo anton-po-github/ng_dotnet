@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { BooksService, IBook } from '../books.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-add-update-books',
@@ -27,8 +28,6 @@ export class AddUpdateBooksComponent implements OnInit {
         this.route.snapshot.paramMap.get('author');
       this.booksService.newBook.id = this.route.snapshot.paramMap.get('id');
     }
-
-    console.log(this.booksService.newBook);
   }
 
   public addUpdateBook(): void {
@@ -40,10 +39,28 @@ export class AddUpdateBooksComponent implements OnInit {
   }
 
   public addOneBook(): void {
-    this.booksService.addOneBook(this.booksService.newBook);
+    this.booksService
+      .addOneBook(this.booksService.newBook)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.booksService.resetNewMyBook();
+          this.router.navigate(['/books']);
+        },
+        error: (err) => console.error(err)
+      });
   }
 
   public updateOneBook(bookId: string): void {
-    this.booksService.updateOneBook(bookId, this.booksService.newBook);
+    this.booksService
+      .updateOneBook(bookId, this.booksService.newBook)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.booksService.resetNewMyBook();
+          this.router.navigate(['/books']);
+        },
+        error: (err) => console.error(err)
+      });
   }
 }

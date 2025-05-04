@@ -37,15 +37,12 @@ export class ProductsComponent {
   }
 
   public updateProduct(product: IProduct): void {
-    console.log(product);
-
     this.router.navigate(['/products/add-update-product', product]);
   }
 
   public deleteProduct(productId: string): void {
     this.productsService.deleteProduct(productId).subscribe({
       next: (result: { message: string }) => {
-        console.log(result);
         if (result.message === 'Product deleted') {
           this.getAllProducts();
         }

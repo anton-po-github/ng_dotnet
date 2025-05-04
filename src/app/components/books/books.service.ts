@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  from,
+  mergeMap,
+  Observable,
+  tap,
+  throwError
+} from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
@@ -48,48 +56,29 @@ export class BooksService {
     return this.http.delete<any>(this.booksUrl + `/${bookId}`);
   }
 
-  public async addOneBook(newBook: IBook): Promise<any> {
-    newBook = await this.setNewBook(newBook);
-
-    this.http.post<any>(this.booksUrl, newBook).subscribe({
-      next: (result: IBook) => {
-        if (result.id) {
-          this.router.navigate(['/books']);
-        }
-
-        this.resetNewMyBook();
-        this.onGetAllBooks$.next(true);
-      },
-      error: (err) => {
-        console.error(err);
-      },
-      complete: () => {}
-    });
+  public addOneBook(newBook: IBook): Observable<IBook> {
+    return this.saveBook(undefined, newBook);
   }
 
-  public async updateOneBook(bookId, newBook: IBook): Promise<any> {
-    newBook = await this.setNewBook(newBook);
-
-    this.http.put<IBook>(this.booksUrl + `/${bookId}`, newBook).subscribe({
-      next: (result: IBook) => {
-        if (result.id) {
-          this.router.navigate(['/books']);
-        }
-
-        this.resetNewMyBook();
-        this.onGetAllBooks$.next(true);
-      },
-      error: (err) => {
-        console.error(err);
-      },
-      complete: () => {}
-    });
+  public updateOneBook(bookId: string, newBook: IBook): Observable<IBook> {
+    return this.saveBook(bookId, newBook);
   }
 
-  public uploadFile(file: FormData): Observable<any> {
-    return this.http.post<any>(this.booksUrl + `file`, file, {
-      reportProgress: true
-    });
+  private saveBook(bookId: string | undefined, book: IBook): Observable<IBook> {
+    return from(this.setNewBook(book)).pipe(
+      mergeMap((preparedBook) => {
+        const url = bookId
+          ? `${this.booksUrl}/${bookId}` // для PUT
+          : this.booksUrl; // для POST
+
+        // выбираем метод по условию
+        return bookId
+          ? this.http.put<IBook>(url, preparedBook)
+          : this.http.post<IBook>(url, preparedBook);
+      }),
+      tap(() => this.onGetAllBooks$.next(true)),
+      catchError((err) => throwError(() => err))
+    );
   }
 
   private async setNewBook(newBook: IBook): Promise<IBook> {
@@ -108,9 +97,7 @@ export class BooksService {
     return newBook;
   }
 
-  private resetNewMyBook(): void {
-    console.log('resetNewMyBook');
-
+  public resetNewMyBook(): void {
     this.newBook = {
       id: null,
       bookName: null,

@@ -13,7 +13,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class BooksComponent {
   public isEdit: boolean;
   public isMyEdit: boolean;
-  public myFile: FormData;
   public books$: Observable<Array<IBook>>;
   public myBooks$: Observable<Array<IBook>>;
 
@@ -50,18 +49,5 @@ export class BooksComponent {
 
   private getAllBooks(): void {
     this.books$ = this.booksService.getAllBooks();
-  }
-
-  public uploadFile(): void {
-    this.booksService
-      .uploadFile(this.myFile)
-
-      .subscribe({
-        next: (result) => {},
-        error: (err) => {
-          console.error(err);
-        },
-        complete: () => {}
-      });
   }
 }
