@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { IBook } from '../books.component';
-import { BooksService } from '../books.service';
+import { BooksService, IBook } from '../books.service';
 
 @Component({
   selector: 'app-add-update-books',
@@ -10,83 +9,41 @@ import { BooksService } from '../books.service';
   standalone: false
 })
 export class AddUpdateBooksComponent implements OnInit {
-  public newMyBook: IBook = {
-    id: null,
-    bookName: null,
-    price: null,
-    category: null,
-    author: null,
-    icon: null,
-    iconId: null
-  };
-
   constructor(
     private router: Router,
     public route: ActivatedRoute,
-    private booksService: BooksService
+    public booksService: BooksService
   ) {}
 
   ngOnInit(): void {
     if (this.route.snapshot.paramMap.get('bookName')) {
-      this.newMyBook.bookName = this.route.snapshot.paramMap.get('bookName');
-      this.newMyBook.price = +this.route.snapshot.paramMap.get('price');
-      this.newMyBook.category = this.route.snapshot.paramMap.get('category');
-      this.newMyBook.author = this.route.snapshot.paramMap.get('author');
-      this.newMyBook.id = this.route.snapshot.paramMap.get('id');
+      this.booksService.newBook.bookName =
+        this.route.snapshot.paramMap.get('bookName');
+      this.booksService.newBook.price =
+        +this.route.snapshot.paramMap.get('price');
+      this.booksService.newBook.category =
+        this.route.snapshot.paramMap.get('category');
+      this.booksService.newBook.author =
+        this.route.snapshot.paramMap.get('author');
+      this.booksService.newBook.id = this.route.snapshot.paramMap.get('id');
     }
+
+    console.log(this.booksService.newBook);
   }
 
   public addUpdateBook(): void {
     if (this.route.snapshot.paramMap.get('bookName')) {
-      this.updateOneBook(this.newMyBook.id);
+      this.updateOneBook(this.booksService.newBook.id);
     } else {
       this.addOneBook();
     }
   }
 
   public addOneBook(): void {
-    this.booksService.addOneBook(this.newMyBook).subscribe({
-      next: (result: IBook) => {
-        if (result.id) {
-          this.router.navigate(['/books']);
-        }
-
-        this.resetNewMyBook();
-        this.booksService.onGetAllBooks$.next(true);
-      },
-      error: (err) => {
-        console.error(err);
-      },
-      complete: () => {}
-    });
+    this.booksService.addOneBook(this.booksService.newBook);
   }
 
   public updateOneBook(bookId: string): void {
-    this.booksService.updateOneBook(bookId, this.newMyBook).subscribe({
-      next: (result: IBook) => {
-        if (result.id) {
-          this.router.navigate(['/books']);
-        }
-
-        this.resetNewMyBook();
-        this.booksService.onGetAllBooks$.next(true);
-      },
-      error: (err) => {
-        console.error(err);
-      },
-      complete: () => {}
-    });
-  }
-
-  private resetNewMyBook(): void {
-    this.newMyBook = {
-      id: null,
-      bookName: null,
-      author: null,
-      category: null,
-      price: null,
-      iconId: null,
-      icon: null
-    };
+    this.booksService.updateOneBook(bookId, this.booksService.newBook);
   }
 }

@@ -49,13 +49,15 @@
             <a class="nav-link text-dark" [routerLink]="['/books']">Books</a>
           </li>
 
-          <!--   <li
+          <li
             *ngIf="this.authService.accessToken"
             class="nav-item"
             [routerLinkActive]="['link-active']"
           >
-            <a class="nav-link text-dark" [routerLink]="['/products']">Products</a>
-          </li> -->
+            <a class="nav-link text-dark" [routerLink]="['/products']"
+              >Products</a
+            >
+          </li>
 
           <li
             *ngIf="this.authService.accessToken"

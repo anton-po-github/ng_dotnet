@@ -1,21 +1,9 @@
 import { Component } from '@angular/core';
-import { BooksService } from './books.service';
+import { BooksService, IBook } from './books.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
-export interface IBook {
-  author: string;
-  bookName: string;
-  category: string;
-  id: string;
-  price?: number;
-  iconId: string;
-  iconPath?: string;
-  // icon: FormData;
-  icon: File;
-}
 
 @Component({
   selector: 'app-books',

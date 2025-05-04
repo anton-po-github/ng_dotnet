@@ -15,8 +15,9 @@
             <label> Book Name: </label>
             <input
               placeholder="Book Name"
-              [(ngModel)]="newMyBook.bookName"
-              name="firstName"
+              type="text"
+              [(ngModel)]="this.booksService.newBook.bookName"
+              name="Book Name"
               class="form-control"
             />
           </div>
@@ -24,8 +25,9 @@
             <label> Category </label>
             <input
               placeholder="Category"
-              [(ngModel)]="newMyBook.category"
-              name="lastName"
+              type="text"
+              [(ngModel)]="this.booksService.newBook.category"
+              name="Category"
               class="form-control"
             />
           </div>
@@ -34,8 +36,9 @@
             <label> Price: </label>
             <input
               placeholder="Price"
-              [(ngModel)]="newMyBook.price"
-              name="email"
+              type="number"
+              [(ngModel)]="this.booksService.newBook.price"
+              name="price"
               class="form-control"
             />
           </div>
@@ -43,15 +46,16 @@
           <div class="form-group mb-3">
             <label> Author: </label>
             <input
-              placeholder="Price"
-              [(ngModel)]="newMyBook.author"
+              placeholder="Author email"
+              [(ngModel)]="this.booksService.newBook.author"
               name="email"
+              type="text"
               class="form-control"
             />
           </div>
 
           <div>
-            <app-upload (fileImage)="newMyBook.icon = $event" />
+            <app-upload (fileImage)="this.booksService.newBook.icon = $event" />
           </div>
 
           <button class="btn btn-success me-3" (click)="addUpdateBook()">

@@ -3,18 +3,42 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { IBook } from './books.component';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+
+export interface IBook {
+  id?: string;
+  bookName: string;
+  price?: number;
+  category: string;
+  author: string;
+  type_file: string;
+  iconBase64: string;
+  iconFileName: string;
+  icon?: File;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class BooksService {
+  public newBook: IBook = {
+    id: null,
+    bookName: null,
+    price: null,
+    author: null,
+    category: null,
+    iconBase64: null,
+    type_file: null,
+    iconFileName: null,
+    icon: null
+  };
+
   public onGetAllBooks$ = new BehaviorSubject<boolean>(true);
 
   private booksUrl = environment.baseUrl + 'api/books';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   public getAllBooks(): Observable<Array<IBook>> {
     return this.http.get<Array<IBook>>(this.booksUrl);
@@ -24,52 +48,98 @@ export class BooksService {
     return this.http.delete<any>(this.booksUrl + `/${bookId}`);
   }
 
-  /*addOneBook(newBook: IBook, file: FormData): Observable<any> {
-    return this.http.post<any>(this.url + `books`, {newBook, file}, {headers: this.httpHeaders});
-  }*/
+  public async addOneBook(newBook: IBook): Promise<any> {
+    newBook = await this.setNewBook(newBook);
 
-  public addOneBook(newBook: IBook): Observable<IBook> {
-    const formData: FormData = new FormData();
+    this.http.post<any>(this.booksUrl, newBook).subscribe({
+      next: (result: IBook) => {
+        if (result.id) {
+          this.router.navigate(['/books']);
+        }
 
-    formData.append('icon', newBook.icon);
-
-    delete newBook.id;
-    delete newBook.icon;
-
-    formData.append('body', JSON.stringify(newBook));
-
-    return this.http.post<any>(this.booksUrl, formData);
+        this.resetNewMyBook();
+        this.onGetAllBooks$.next(true);
+      },
+      error: (err) => {
+        console.error(err);
+      },
+      complete: () => {}
+    });
   }
 
-  public updateOneBook(bookId, newBook: IBook): Observable<IBook> {
-    const formData: FormData = new FormData();
+  public async updateOneBook(bookId, newBook: IBook): Promise<any> {
+    newBook = await this.setNewBook(newBook);
 
-    formData.append('icon', newBook.icon);
+    this.http.put<IBook>(this.booksUrl + `/${bookId}`, newBook).subscribe({
+      next: (result: IBook) => {
+        if (result.id) {
+          this.router.navigate(['/books']);
+        }
 
-    delete newBook.id;
-    delete newBook.icon;
-
-    return this.http.put<any>(this.booksUrl + `/${bookId}`, formData);
+        this.resetNewMyBook();
+        this.onGetAllBooks$.next(true);
+      },
+      error: (err) => {
+        console.error(err);
+      },
+      complete: () => {}
+    });
   }
-  // for a collection MyBooks
 
-  /* uploadFile(file: FormData): Observable<any> {
-     return this.http.post<any>(this.url + `api/upload`, file, {
-       reportProgress: true,
-     });
-   }*/
   public uploadFile(file: FormData): Observable<any> {
     return this.http.post<any>(this.booksUrl + `file`, file, {
       reportProgress: true
     });
   }
 
-  private _toFormData(data): FormData {
-    const fd = new FormData();
-    const keys = Object.keys(data);
-    keys.forEach((key) => {
-      fd.append(key, data[key]);
+  private async setNewBook(newBook: IBook): Promise<IBook> {
+    try {
+      newBook.iconBase64 = await this.fileToBase64(newBook.icon);
+    } catch (error) {
+      console.error(error);
+    }
+
+    newBook.iconFileName = newBook.icon.name;
+    newBook.type_file = newBook.icon.type;
+
+    delete newBook.id;
+    delete newBook.icon;
+
+    return newBook;
+  }
+
+  private resetNewMyBook(): void {
+    console.log('resetNewMyBook');
+
+    this.newBook = {
+      id: null,
+      bookName: null,
+      author: null,
+      category: null,
+      price: null,
+      iconBase64: null,
+      type_file: null,
+      iconFileName: null,
+      icon: null
+    };
+  }
+
+  private async fileToBase64(file: File): Promise<string> {
+    if (!file) {
+      return;
+    }
+
+    return await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        const dataUrl = reader.result as string;
+        const base64 = dataUrl.split(',')[1];
+        resolve(base64);
+      };
+
+      reader.onerror = (error) => reject(error);
     });
-    return fd;
   }
 }

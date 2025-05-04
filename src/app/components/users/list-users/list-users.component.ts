@@ -22,7 +22,7 @@ export class ListUsersComponent implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      this.onGetUsers(`?sort=name&pageIndex=${1}&pageSize=10`);
+      this.onGetUsers(`?sort=name&pageIndex=${1}&pageSize=2`);
     }, 300);
   }
 
@@ -67,7 +67,11 @@ export class ListUsersComponent implements OnInit {
       pageIndex--;
     }
 
-    let paramsUsers = `?sort=name&pageIndex=${pageIndex}&pageSize=10`;
+    if (!pageIndex) {
+      return;
+    }
+
+    let paramsUsers = `?sort=name&pageIndex=${pageIndex}&pageSize=2`;
 
     this.onGetUsers(paramsUsers);
   }
