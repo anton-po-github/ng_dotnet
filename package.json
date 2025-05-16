@@ -24,6 +24,7 @@
     "@angular/router": "19.1.6",
     "@aspnet/signalr": "^1.0.27",
     "@microsoft/signalr": "^8.0.7",
+    "@ngbracket/ngx-layout": "^19.0.0",
     "@types/file-saver": "^2.0.7",
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^5.3.3",
@@ -46,7 +47,6 @@
     "@types/jasmine": "~3.4.4",
     "@types/jasminewd2": "~2.0.8",
     "@types/node": "^18.19.96",
-    "codelyzer": "^5.1.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.4.4",
@@ -60,7 +60,6 @@
   "optionalDependencies": {
     "node-sass": "^9.0.0",
     "protractor": "^7.0.0",
-    "ts-node": "~8.4.1",
-    "tslint": "~6.1.0"
+    "ts-node": "~8.4.1"
   }
 }
