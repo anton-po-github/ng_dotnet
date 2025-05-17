@@ -12,24 +12,27 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 import { SharedModule } from './components/shared/shared.module';
 
+import { MaterialModules } from './material.modules';
+
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { ChatComponent } from './components/SignalR-chat/chat/chat.component';
-import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { BlobStorageComponent } from './components/blob-storage/blob-storage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
+    ToolbarComponent,
     ChatComponent,
     HomeComponent,
     BlobStorageComponent
   ],
   imports: [
     BrowserModule,
+    MaterialModules,
     SharedModule,
     FormsModule,
     RouterModule.forRoot([

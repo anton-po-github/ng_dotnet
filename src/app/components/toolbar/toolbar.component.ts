@@ -5,12 +5,12 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
-  selector: 'app-nav-menu',
-  templateUrl: './nav-menu.component.html',
-  styleUrls: ['./nav-menu.component.scss'],
+  selector: 'app-toolbar',
+  templateUrl: './toolbar.component.html',
+  styleUrls: ['./toolbar.component.scss'],
   standalone: false
 })
-export class NavMenuComponent {
+export class ToolbarComponent {
   constructor(public router: Router, public authService: AuthService) {}
 
   public loginLogout(): void {
