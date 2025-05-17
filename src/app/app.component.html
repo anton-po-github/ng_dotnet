@@ -1,5 +1,10 @@
-<app-toolbar />
+<!-- <app-toolbar (toggleTheme)="toggleTheme()" />
 
 <div class="ps-5 pe-5" style="overflow-x: auto; max-height: 90vh">
   <router-outlet />
+</div> -->
+
+<div [class]="themeClass">
+  <app-toolbar (toggleTheme)="toggleTheme()" />
+  <router-outlet></router-outlet>
 </div>

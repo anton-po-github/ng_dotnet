@@ -18,8 +18,8 @@ import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-import { ChatComponent } from './components/SignalR-chat/chat/chat.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ChatComponent } from './components/SignalR-chat/chat/chat.component';
 import { BlobStorageComponent } from './components/blob-storage/blob-storage.component';
 
 @NgModule({

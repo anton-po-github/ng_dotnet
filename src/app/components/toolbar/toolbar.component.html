@@ -1,4 +1,12 @@
 <mat-toolbar>
+  <span>ng_dotnet</span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="toggleTheme.emit()">
+    <mat-icon>dark_mode</mat-icon>
+  </button>
+</mat-toolbar>
+
+<!-- <mat-toolbar>
   <button
     mat-icon-button
     class="example-icon"
@@ -22,7 +30,7 @@
   >
     <mat-icon>share</mat-icon>
   </button>
-</mat-toolbar>
+</mat-toolbar> -->
 
 <!-- <header>
   <nav
