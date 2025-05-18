@@ -1,3 +1,30 @@
-.example-spacer {
-  flex: 1 1 auto;
+.navbar {
+  padding: 0 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .ng-dotnet-icons {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .toolbar-button {
+    border-radius: 20px;
+    padding: 20px;
+  }
+
+  button[mat-button] {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  button[mat-icon-button] {
+    margin-left: 0.5rem;
+  }
 }

@@ -14,6 +14,9 @@ import {
 
 import { jwtDecode } from 'jwt-decode';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+
+import { ThemeService } from './../../services/theme.service';
 
 export interface IUser {
   email: string;
@@ -38,18 +41,26 @@ export class AuthService {
 
   private autUrl = environment.baseUrl + 'api/account';
 
-  // Хранилище токенов
   private accessToken$ = new BehaviorSubject<string | null>(null);
 
   private refreshToken: string | null = null;
 
   private refreshSub!: Subscription;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private themeService: ThemeService
+  ) {
     this.loadTokens();
   }
 
-  // 1) Вход: сохраняем токены и планируем авто-обновление
+  public getBgImageLogin(): string {
+    return this.themeService.theme === 'light-theme'
+      ? 'url(' + '/assets/images/bg-login-light2.png' + ')'
+      : 'url(' + '/assets/images/bg-login-dark2.png' + ')';
+  }
+
   public login(credentials: { email: string; password: string }) {
     return this.http
       .post<ILoggedUser>(`${this.autUrl}/login`, credentials)
@@ -66,7 +77,6 @@ export class AuthService {
     this.clearTokens();
   }
 
-  // 6) Геттер для текущего токена
   public getAccessToken() {
     return this.accessToken$.value;
   }
@@ -75,7 +85,6 @@ export class AuthService {
     return this.http.get<boolean>(this.autUrl + '/emailexists?email=' + email);
   }
 
-  // 3) Реальный вызов обновления
   public refresh() {
     const currentAccess = this.accessToken$.value;
 
@@ -87,7 +96,6 @@ export class AuthService {
       .pipe(tap((res) => this.setTokens(res)));
   }
 
-  // 4) Приватные методы
   private setTokens(res: ILoggedUser) {
     this.accessToken$.next(res.accessToken);
 
@@ -127,6 +135,8 @@ export class AuthService {
     localStorage.removeItem('refreshToken');
 
     if (this.refreshSub) this.refreshSub.unsubscribe();
+
+    this.router.navigateByUrl('auth/login');
   }
 
   private scheduleRefresh() {
@@ -146,18 +156,4 @@ export class AuthService {
       )
       .subscribe();
   }
-
-  /*  private scheduleRefresh() {
-    if (this.refreshSub) this.refreshSub.unsubscribe();
-
-    const token = this.accessToken$.value!;
-
-    const expDate = jwtDecode<{ exp: number }>(token).exp * 1000; // exp в секундах → мс :contentReference[oaicite:5]{index=5}
-    const now = Date.now();
-    const ahead = expDate - now - 2 * 60 * 1000; // за 2 мин до истечения :contentReference[oaicite:6]{index=6}
-
-    this.refreshSub = timer(Math.max(ahead, 0))
-      .pipe(switchMap(() => this.refresh()))
-      .subscribe();
-  } */
 }

@@ -1,10 +1,17 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { AuthService } from '../auth/auth.service';
+import { ThemeService } from './../../services/theme.service';
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
+  styleUrls: ['./toolbar.component.scss'],
   standalone: false
 })
 export class ToolbarComponent {
-  @Output() toggleTheme = new EventEmitter<void>();
+  constructor(
+    public themeService: ThemeService,
+    public authService: AuthService
+  ) {}
 }

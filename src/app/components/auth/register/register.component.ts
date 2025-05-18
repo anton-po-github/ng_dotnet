@@ -7,20 +7,24 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { debounceTime, finalize, map, switchMap, take } from 'rxjs';
+
 import { AuthService, ILoginForm } from '../auth.service';
+import { ThemeService } from './../../../services/theme.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
   standalone: false
 })
 export class RegisterComponent {
   public errors: string[] | null = null;
 
   constructor(
+    public authService: AuthService,
+    public themeService: ThemeService,
     private router: Router,
-    private fb: FormBuilder,
-    private authService: AuthService
+    private fb: FormBuilder
   ) {}
 
   public complexPassword =
@@ -38,6 +42,10 @@ export class RegisterComponent {
       [Validators.required, Validators.pattern(this.complexPassword)]
     ]
   });
+
+  public goToLogin(): void {
+    this.router.navigate(['auth/login']);
+  }
 
   public onSubmit() {
     this.authService.register(this.registerForm.value as ILoginForm).subscribe({

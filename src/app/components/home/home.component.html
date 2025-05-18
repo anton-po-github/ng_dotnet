@@ -1,6 +1,14 @@
 <div
-  style="min-height: 90vh"
-  class="d-flex justify-content-center align-items-center"
+  [ngStyle]="{
+    'background-image': getBgImageHome(),
+    'background-position': 'center',
+    'background-repeat': 'no-repeat',
+    'background-size': 'cover'
+  }"
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  style="min-height: 100vh"
 >
-  <h1 style="font-size: 50px">Make a selections</h1>
+  <!--  <h1 style="font-size: 50px">Make a selection</h1> -->
+  <h1 class="text-white" style="font-size: 50px">&</h1>
 </div>

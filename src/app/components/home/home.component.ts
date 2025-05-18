@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HomeService } from './home.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,10 @@ import { HomeService } from './home.service';
   standalone: false
 })
 export class HomeComponent {
-  constructor(private homeService: HomeService) {
+  constructor(
+    private themeService: ThemeService,
+    private homeService: HomeService
+  ) {
     this.homeService.getIdentityUsers().subscribe({
       next: (result) => {},
       error: (err) => {
@@ -17,5 +21,11 @@ export class HomeComponent {
         // this.showLoader = false;
       }
     });
+  }
+
+  public getBgImageHome(): string {
+    return this.themeService.theme === 'light-theme'
+      ? 'url(' + '/assets/images/bg-login-light.png' + ')'
+      : 'url(' + '/assets/images/bg-login-dark.png' + ')';
   }
 }

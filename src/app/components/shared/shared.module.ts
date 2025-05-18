@@ -2,18 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { TextInputComponent } from './text-input/text-input.component';
-import { UploadComponent } from 'src/app/components/shared/components/upload/upload.component';
+import { MaterialModules } from 'src/app/material.modules';
+
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { UploadComponent } from 'src/app/components/shared/components/upload/upload.component';
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule],
-  declarations: [TextInputComponent, UploadComponent, SpinnerComponent],
+  imports: [CommonModule, ReactiveFormsModule, MaterialModules],
+  declarations: [UploadComponent, SpinnerComponent],
   exports: [
-    TextInputComponent,
     UploadComponent,
     SpinnerComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModules
   ]
 })
 export class SharedModule {}

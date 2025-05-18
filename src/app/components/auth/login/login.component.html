@@ -1,39 +1,81 @@
-<div class="d-flex justify-content-center mt-5">
-  <div class="col-6">
+<!-- login.component.html -->
+<div
+  [ngStyle]="{
+    'background-image': this.authService.getBgImageLogin(),
+    'background-position': 'center',
+    'background-repeat': 'no-repeat',
+    'background-size': 'cover'
+  }"
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  class="h-100vh"
+>
+  <mat-card color="accent" class="login-card pt-4">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <div class="text-center mb-4">
-        <h1 class="mb-3">Login</h1>
-      </div>
-
-      <app-text-input
-        [formControl]="loginForm.controls['email']"
-        [label]="'Email Address'"
-      ></app-text-input>
-
-      <app-text-input
-        [formControl]="loginForm.controls['password']"
-        [label]="'Password'"
-        [type]="'password'"
-      ></app-text-input>
-
-      <div
-        class="d-grid"
-        [ngStyle]="{ cursor: loginForm.invalid ? 'not-allowed' : '' }"
+      <h2
+        [ngStyle]="{
+          color: this.themeService.theme === 'dark-theme' ? '#fff' : '#000'
+        }"
+        class="mat-headline-5 text-center mb-4"
       >
-        <button
-          [disabled]="loginForm.invalid"
-          class="btn btn-lg btn-primary mt-3"
-          type="submit"
-        >
-          Sign in
-        </button>
-      </div>
+        Login
+      </h2>
 
-      <div class="d-grid">
-        <button class="btn btn-lg btn-primary mt-3" (click)="goToRegister()">
-          Register
-        </button>
+      <mat-form-field
+        [ngClass]="{
+          'auth-dark-theme': this.themeService.theme === 'dark-theme',
+          'auth-light-theme': this.themeService.theme === 'light-theme',
+          'w-100': true
+        }"
+        color="accent"
+        appearance="outline"
+      >
+        <mat-label>Email Address</mat-label>
+        <input matInput formControlName="email" type="email" />
+        <mat-error *ngIf="loginForm.get('email')?.invalid">
+          Valid email is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field color="accent" appearance="outline" class="w-100">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" />
+        <mat-error *ngIf="loginForm.get('password')?.invalid">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+
+      <div fxLayout="row">
+        <div
+          fxFlex="50"
+          [ngClass]="{
+            'cursor-disabled': loginForm.invalid,
+            'me-1': true
+          }"
+        >
+          <button
+            mat-raised-button
+            color="accent"
+            class="w-100"
+            type="submit"
+            [disabled]="loginForm.invalid"
+          >
+            Sign In
+          </button>
+        </div>
+
+        <div fxFlex="50" class="ms-1">
+          <button
+            mat-raised-button
+            color="accent"
+            class="w-100"
+            type="button"
+            (click)="goToRegister()"
+          >
+            Sign up
+          </button>
+        </div>
       </div>
     </form>
-  </div>
+  </mat-card>
 </div>

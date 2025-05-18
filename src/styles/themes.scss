@@ -1,37 +1,228 @@
 @use '@angular/material' as mat;
-@use 'sass:map';
 
-@include mat.core();
+mat.$theme-ignore-duplication-warnings: true;
 
-// Цветовая схема: светлая тема
-$light-primary: mat.define-palette(mat.$indigo-palette);
-$light-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-$light-theme: mat.define-light-theme(
+@include mat.elevation-classes();
+@include mat.app-background();
+//@include mat.legacy-typography-hierarchy(mat.define-typography-config());
+//@include mat.typography-hierarchy(mat.define-typography-config());
+
+@include mat.all-component-typographies();
+
+$custom-blue: (
+  10: #d7e3ff,
+  50: #abd8f9,
+  100: #87c5f7,
+  200: #61b3f6,
+  300: #3ba1f3,
+  400: #1d93f3,
+  500: #0c85e5,
+  600: #1777cb,
+  700: #1567b8,
+  800: #1258a8,
+  900: #0b3e8d,
+  A100: #5293ff,
+  A200: #1c71ff,
+  A400: #0462ff,
+  A700: #0447ff,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white
+  )
+);
+
+$custom-blue-darker: (
+  50: #87c5f7,
+  100: #61b3f6,
+  200: #3ba1f3,
+  300: #1d93f3,
+  400: #0c85e5,
+  500: #1777cb,
+  600: #1567b8,
+  700: #1258a8,
+  800: #0b3e8d,
+  900: #0b3e8d,
+  A100: #1c71ff,
+  A200: #0462ff,
+  A400: #0447ff,
+  A700: #0447ff,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white
+  )
+);
+
+$custom-yellow: (
+  50: #fffde7,
+  100: #fff9c4,
+  200: #fff59d,
+  300: #fff176,
+  400: #ffee58,
+  500: #ffeb3b,
+  600: #fdd835,
+  700: #fbc02d,
+  800: #f9a825,
+  900: #f57f17,
+  A100: #ffff8d,
+  A200: #ffff00,
+  A400: #ffea00,
+  A700: #ffd600,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    600: rgba(black, 0.87),
+    700: rgba(black, 0.87),
+    800: rgba(black, 0.87),
+    900: rgba(black, 0.87)
+  )
+);
+
+$custom-violet: (
+  50: #fffde7,
+  100: #fff9c4,
+  200: #fff59d,
+  300: #fff176,
+  400: #ffee58,
+  500: #ffeb3b,
+  600: #fdd835,
+  700: #fbc02d,
+  800: #f9a825,
+  900: #f57f17,
+  950: #810081,
+  A100: #ffff8d,
+  A200: #ffff00,
+  A400: #ffea00,
+  A700: #ffd600,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: rgba(black, 0.87),
+    600: rgba(black, 0.87),
+    700: rgba(black, 0.87),
+    800: rgba(black, 0.87),
+    900: rgba(black, 0.87)
+  )
+);
+
+// App-Light theme
+$app-light-primary: mat.m2-define-palette($custom-blue);
+$app-light-accent: mat.m2-define-palette($custom-blue, 10);
+$app-light-theme: mat.m2-define-light-theme(
   (
     color: (
-      primary: $light-primary,
-      accent: $light-accent
+      primary: $app-light-primary,
+      accent: $app-light-accent,
+      typography: mat.m2-define-typography-config(),
+      density: 0
     )
   )
 );
 
-// Цветовая схема: темная тема
-$dark-primary: mat.define-palette(mat.$blue-grey-palette);
-$dark-accent: mat.define-palette(mat.$deep-orange-palette, A200, A100, A400);
-$dark-theme: mat.define-dark-theme(
+// App-Dark theme
+$app-dark-primary: mat.m2-define-palette($custom-violet);
+$app-dark-accent: mat.m2-define-palette($custom-violet, 950);
+$app-dark-theme: mat.m2-define-dark-theme(
   (
     color: (
-      primary: $dark-primary,
-      accent: $dark-accent
+      primary: $app-dark-primary,
+      accent: $app-dark-accent,
+      typography: mat.m2-define-typography-config(),
+      density: 0
     )
   )
 );
 
-// Классы для тем
 .light-theme {
-  @include mat.all-component-themes($light-theme);
+  @include mat.all-component-themes($app-light-theme);
 }
 
 .dark-theme {
-  @include mat.all-component-themes($dark-theme);
+  @include mat.all-component-themes($app-dark-theme);
+}
+
+.light-theme {
+  ::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: #fff;
+    background-image: -webkit-gradient(
+      linear,
+      40% 0%,
+      75% 84%,
+      from(#00b7f0),
+      to(#1258a8),
+      color-stop(0.7, #126fa8)
+    );
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+  }
+
+  .auth-light-theme {
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px #fff inset !important;
+    }
+
+    input:-webkit-autofill {
+      -webkit-text-fill-color: #000 !important;
+    }
+  }
+}
+
+.dark-theme {
+  ::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: #fff;
+    background-image: -webkit-gradient(
+      linear,
+      40% 0%,
+      75% 84%,
+      from(#ffff8d),
+      to(#ffea00),
+      color-stop(0.7, #ffea00)
+    );
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+  }
+
+  .auth-dark-theme {
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px #424242 inset !important;
+    }
+
+    input:-webkit-autofill {
+      -webkit-text-fill-color: #fff !important;
+    }
+  }
 }

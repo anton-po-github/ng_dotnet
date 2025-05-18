@@ -1,123 +1,72 @@
-<mat-toolbar>
-  <span>ng_dotnet</span>
+<mat-toolbar
+  color="accent"
+  class="navbar"
+  [ngStyle]="{ 'background-color': this.themeService.currentGlobalColors }"
+>
+  <!--  <div *ngIf="!this.authService.getAccessToken()">
+    <img class="ng-dotnet-icons" src="assets/images/ng-icon.svg" alt="" />
+    &
+    <img class="ng-dotnet-icons" src="assets/images/dotnet-icon.svg" alt="" />
+  </div> -->
+
+  <div *ngIf="this.authService.getAccessToken()">
+    <button class="toolbar-button" mat-button routerLink="/" aria-label="Home">
+      <mat-icon>home</mat-icon>
+      Home
+    </button>
+
+    <button
+      class="toolbar-button"
+      mat-button
+      [routerLink]="['/users']"
+      aria-label="Users"
+    >
+      Users
+    </button>
+
+    <button
+      class="toolbar-button"
+      mat-button
+      [routerLink]="['/books']"
+      aria-label="Books"
+    >
+      Books
+    </button>
+
+    <button
+      class="toolbar-button"
+      mat-button
+      [routerLink]="['/products']"
+      aria-label="Products"
+    >
+      Products
+    </button>
+
+    <button
+      class="toolbar-button"
+      mat-button
+      [routerLink]="['/signalr-chat']"
+      aria-label="Chat"
+    >
+      Chat
+    </button>
+  </div>
+
   <span class="spacer"></span>
-  <button mat-icon-button (click)="toggleTheme.emit()">
-    <mat-icon>dark_mode</mat-icon>
+
+  <button
+    *ngIf="this.authService.getAccessToken()"
+    mat-icon-button
+    (click)="this.authService.logout()"
+  >
+    <mat-icon>{{
+      this.authService.getAccessToken() ? 'login' : 'logout'
+    }}</mat-icon>
+  </button>
+
+  <button mat-icon-button (click)="this.themeService.toggleTheme()">
+    <mat-icon>{{
+      this.themeService.theme === 'dark-theme' ? 'mode_night' : 'light_mode'
+    }}</mat-icon>
   </button>
 </mat-toolbar>
-
-<!-- <mat-toolbar>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with menu icon"
-  >
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>My App</span>
-  <span class="example-spacer"></span>
-  <button
-    mat-icon-button
-    class="example-icon favorite-icon"
-    aria-label="Example icon-button with heart icon"
-  >
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with share icon"
-  >
-    <mat-icon>share</mat-icon>
-  </button>
-</mat-toolbar> -->
-
-<!-- <header>
-  <nav
-    class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
-    <div class="container">
-      <h2 class="navbar-brand" [routerLink]="['/']" style="cursor: pointer">
-        NG & .NET
-      </h2>
-
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto">
-          <li
-            *ngIf="this.authService.accessToken"
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-          </li>
-
-          <li
-            *ngIf="this.authService.accessToken"
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-          >
-            <a class="nav-link text-dark" [routerLink]="['/users']">Users</a>
-          </li>
-
-          <li
-            *ngIf="this.authService.accessToken"
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-          >
-            <a class="nav-link text-dark" [routerLink]="['/books']">Books</a>
-          </li>
-
-          <li
-            *ngIf="this.authService.accessToken"
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-          >
-            <a class="nav-link text-dark" [routerLink]="['/products']"
-              >Products</a
-            >
-          </li>
-
-          <li
-            *ngIf="this.authService.accessToken"
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-          >
-            <a class="nav-link text-dark" [routerLink]="['/signalr-chat']"
-              >Chat</a
-            >
-          </li>
-
-       
-            <li *ngIf="this.sharedService.postgreToken" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/az-blob-storage']"
-              >Azure BS</a
-            >
-          </li>  
-
-          <li
-            *ngIf="router.url !== '/auth/login'"
-            class="nav-item"
-            style="cursor: pointer"
-          >
-            <a class="nav-link text-dark" (click)="loginLogout()">
-              {{ this.authService.accessToken ? 'Logout' : 'Login' }}
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</header> -->

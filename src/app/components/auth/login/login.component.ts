@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService, ILoginForm } from '../auth.service';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
   standalone: false
 })
 export class LoginComponent {
@@ -15,7 +17,11 @@ export class LoginComponent {
     password: new FormControl('', Validators.required)
   });
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    public authService: AuthService,
+    public themeService: ThemeService,
+    private router: Router
+  ) {
     if (router.url === '/auth/login' && this.authService.accessToken) {
       this.router.navigate(['']);
     }

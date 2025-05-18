@@ -24,13 +24,12 @@ export class JwtInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    // Если URL в списке public — просто дальше
     if (this.publicPaths.some((p) => req.url.endsWith(p))) {
       return next.handle(req);
     }
 
-    // Иначе берём токен и, если он есть, клонируем запрос с заголовком
     const token = this.auth.getAccessToken();
+
     if (token) {
       req = req.clone({
         setHeaders: { Authorization: `Bearer ${token}` }
