@@ -21,6 +21,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ChatComponent } from './components/SignalR-chat/chat/chat.component';
 import { BlobStorageComponent } from './components/blob-storage/blob-storage.component';
+import { ZohoTicketsComponent } from './components/zoho-tickets/zoho-tickets.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { BlobStorageComponent } from './components/blob-storage/blob-storage.com
     ToolbarComponent,
     ChatComponent,
     HomeComponent,
+    ZohoTicketsComponent,
     BlobStorageComponent
   ],
   imports: [
