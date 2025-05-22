@@ -4,17 +4,17 @@ import { environment } from 'src/environments/environment';
 import axios, { AxiosResponse } from 'axios';
 
 export interface Ticket {
-  id: string;
-  subject: string;
-  status: string;
-  createdTime: string;
+  Id: string;
+  Subject: string;
+  Status: string;
+  CreatedTime: string;
 }
 
 export interface TicketCreateDto {
-  subject: string;
-  departmentId: string;
-  contactId: string;
-  description: string;
+  Subject: string;
+  DepartmentId: string;
+  ContactId: string;
+  Description: string;
 }
 
 @Injectable({ providedIn: 'root' })

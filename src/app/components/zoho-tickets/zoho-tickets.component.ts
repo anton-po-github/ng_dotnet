@@ -14,10 +14,10 @@ export class ZohoTicketsComponent implements OnInit {
   tickets: Ticket[] = [];
   // поля для формы создания тикета
   newTicket: TicketCreateDto = {
-    subject: '',
-    departmentId: '',
-    contactId: '',
-    description: ''
+    Subject: '',
+    DepartmentId: '',
+    ContactId: '',
+    Description: ''
   };
   loading = false;
   errorMsg = '';
@@ -52,7 +52,7 @@ export class ZohoTicketsComponent implements OnInit {
 
   /** Создать новый тикет и обновить список */
   async createTicket() {
-    if (!this.newTicket.subject.trim()) {
+    if (!this.newTicket.Subject.trim()) {
       this.errorMsg = 'Тема не может быть пустой';
       return;
     }
@@ -63,10 +63,10 @@ export class ZohoTicketsComponent implements OnInit {
       await this.zohoTicketsService.create(this.newTicket);
       // очистим форму
       this.newTicket = {
-        subject: '',
-        departmentId: '',
-        contactId: '',
-        description: ''
+        Subject: '',
+        DepartmentId: '',
+        ContactId: '',
+        Description: ''
       };
       // перезагрузим список
       await this.loadTickets();

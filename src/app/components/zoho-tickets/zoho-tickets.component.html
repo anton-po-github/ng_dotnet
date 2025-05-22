@@ -17,23 +17,23 @@
 <h3>Создать новый тикет</h3>
 <form (ngSubmit)="createTicket()">
   <input
-    [(ngModel)]="newTicket.subject"
+    [(ngModel)]="newTicket.Subject"
     name="subject"
     placeholder="Тема"
     required
   />
   <input
-    [(ngModel)]="newTicket.departmentId"
+    [(ngModel)]="newTicket.DepartmentId"
     name="departmentId"
     placeholder="DepartmentId"
   />
   <input
-    [(ngModel)]="newTicket.contactId"
+    [(ngModel)]="newTicket.ContactId"
     name="contactId"
     placeholder="ContactId"
   />
   <textarea
-    [(ngModel)]="newTicket.description"
+    [(ngModel)]="newTicket.Description"
     name="description"
     placeholder="Описание"
   ></textarea>
