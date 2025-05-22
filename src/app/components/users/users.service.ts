@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 export interface INewUser {
   firstName: string;
   lastName: string;
+  photoType: string;
   email: string;
   photo: File;
 }
@@ -78,6 +79,7 @@ export class UsersService {
     formData.append('photo', newUser.photo);
     formData.append('firstName', newUser.firstName);
     formData.append('lastName', newUser.lastName);
+    formData.append('photoType', newUser.photoType);
     formData.append('email', newUser.email);
 
     return formData;

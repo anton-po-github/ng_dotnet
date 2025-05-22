@@ -40,7 +40,11 @@
           </div>
 
           <div>
-            <app-upload (fileImage)="newUser.photo = $event" />
+            <app-upload
+              (fileImage)="
+                newUser.photo = $event; newUser.photoType = $event.type
+              "
+            />
           </div>
 
           <button class="btn btn-success me-3" (click)="addUpdateUser()">

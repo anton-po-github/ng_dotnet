@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 
 import { Subject } from 'rxjs';
 import { IUsers, IUsersData, UsersService } from '../users.service';
 import { Router } from '@angular/router';
+import { ColumnConfig } from '../../shared/components/universal-table/universal-table.component';
 
 @Component({
   selector: 'app-list-users',
@@ -10,13 +11,27 @@ import { Router } from '@angular/router';
   standalone: false
 })
 export class ListUsersComponent implements OnInit {
-  private usersSource = new Subject<Array<IUsersData>>();
-
-  public users$ = this.usersSource.asObservable();
+  private usersSource$ = new Subject<Array<IUsersData>>();
+  public users$ = this.usersSource$.asObservable();
 
   public searchUsers = '';
-
   private resultIUsers = {} as IUsers;
+
+  public columnsUsers = signal<ColumnConfig[]>([
+    { columnDef: 'icon', header: 'Icon', isTemplate: true },
+    { columnDef: 'first_name', header: 'First Name', cell: (e) => e.firstName },
+    {
+      columnDef: 'last_name',
+      header: 'Last Name',
+      cell: (e) => `${e.lastName}`
+    },
+    { columnDef: 'email', header: 'Email', cell: (e) => e.email },
+    { columnDef: 'phone', header: 'Phone', cell: (e) => e.phone },
+    { columnDef: 'role', header: 'Role', cell: (e) => e.details.Role },
+    { columnDef: 'actions', header: 'Actions', isAction: true }
+  ]);
+
+  public users: IUsers[] = [];
 
   constructor(public usersService: UsersService, private router: Router) {}
 
@@ -86,7 +101,9 @@ export class ListUsersComponent implements OnInit {
           d.details = JSON.parse(d.details as string);
         });
 
-        this.usersSource.next(result.data);
+        this.users = [...result.data];
+
+        this.usersSource$.next(result.data);
       },
       error: (err) => {
         console.error(err);

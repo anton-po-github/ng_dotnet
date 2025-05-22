@@ -14,6 +14,7 @@ export class AddUpdateUserComponent implements OnInit {
   public newUser: INewUser = {
     firstName: '',
     lastName: '',
+    photoType: '',
     email: '',
     photo: null
   };
