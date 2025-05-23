@@ -12,8 +12,6 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 import { SharedModule } from './components/shared/shared.module';
 
-import { MaterialModules } from './material.modules';
-
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
@@ -21,7 +19,6 @@ import { HomeComponent } from './components/home/home.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ChatComponent } from './components/SignalR-chat/chat/chat.component';
 import { BlobStorageComponent } from './components/blob-storage/blob-storage.component';
-import { ZohoTicketsComponent } from './components/zoho-tickets/zoho-tickets.component';
 
 @NgModule({
   declarations: [
@@ -29,12 +26,10 @@ import { ZohoTicketsComponent } from './components/zoho-tickets/zoho-tickets.com
     ToolbarComponent,
     ChatComponent,
     HomeComponent,
-    ZohoTicketsComponent,
     BlobStorageComponent
   ],
   imports: [
     BrowserModule,
-    MaterialModules,
     SharedModule,
     FormsModule,
     RouterModule.forRoot([

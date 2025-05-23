@@ -1,26 +1,28 @@
-<ng-container *ngIf="users.length">
-  <app-universal-table [data]="users" [columns]="columnsUsers">
-    <ng-template appTableTemplate="icon" let-user>
-      <img
-        *ngIf="user.photoUrl"
-        [src]="'data:' + user.photoType + ';base64,' + user.photoUrl"
-        style="height: 50px"
-      />
-      <div *ngIf="!user.photoUrl">no icon</div>
-    </ng-template>
+<div class="ms-4 me-4">
+  <ng-container *ngIf="users.length">
+    <app-universal-table [data]="users" [columns]="columnsUsers">
+      <ng-template appTableTemplate="icon" let-user>
+        <img
+          *ngIf="user.photoUrl"
+          [src]="'data:' + user.photoType + ';base64,' + user.photoUrl"
+          style="height: 50px"
+        />
+        <div *ngIf="!user.photoUrl">no icon</div>
+      </ng-template>
 
-    <ng-template appTableTemplate="actions" let-element>
-      <button mat-icon-button (click)="updateUser(element)">
-        <mat-icon>edit</mat-icon>
-      </button>
+      <ng-template appTableTemplate="actions" let-element>
+        <button mat-icon-button (click)="updateUser(element)">
+          <mat-icon>edit</mat-icon>
+        </button>
 
-      <button mat-icon-button (click)="deleteUser(element.id)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </ng-template>
-  </app-universal-table>
-</ng-container>
+        <button mat-icon-button (click)="deleteUser(element.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </ng-template>
+    </app-universal-table>
+  </ng-container>
 
-<button class="btn btn-primary" [routerLink]="['/users/add-update-user']">
-  Add User
-</button>
+  <button class="btn btn-primary" [routerLink]="['/users/add-update-user']">
+    Add User
+  </button>
+</div>

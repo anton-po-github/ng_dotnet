@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { MaterialModules } from 'src/app/material.modules';
+import { MaterialModules } from 'src/app/components/shared/material.modules';
 
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { UploadComponent } from 'src/app/components/shared/components/upload/upload.component';
