@@ -10,15 +10,8 @@ import {
 
 import { map, catchError, Observable, throwError, from, switchMap } from 'rxjs';
 
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  // public errorDialog = {} as MatDialogRef<ErrorDialogComponent>;
-  public isOpenErrorDialog = false;
-
-  constructor(private dialog: MatDialog) {}
-
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -26,28 +19,10 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          //
-
-          console.log(event);
-
-          if (event.body && event.body.error) {
-            const data = {
-              text: `The server responded with an error (status ${event.body.status_code}):`,
-              data: event.body
-            };
-            // this.openErrorDialog(data);
-          }
         }
-
         return event;
       }),
       catchError((error: HttpErrorResponse) => {
-        //
-        const data = {
-          text: `The server responded with an error (status ${error.status}):`,
-          data: error.error
-        };
-
         if (
           error.error?.message ===
           'An exception has been raised that is likely due to a transient failure.'
@@ -60,30 +35,8 @@ export class ErrorInterceptor implements HttpInterceptor {
           ).pipe(switchMap((retryRequest$) => retryRequest$));
         }
 
-        // this.openErrorDialog(data);
-
         return throwError(() => error);
       })
     );
   }
-
-  /*   private openErrorDialog(data: IErrorDialog): void {
-    if (this.isOpenErrorDialog) {
-      console.error(data);
-
-      return;
-    }
-
-    this.errorDialog = this.dialog.open(ErrorDialogComponent, {
-      width: '480px',
-      data,
-      autoFocus: false
-    });
-
-    this.isOpenErrorDialog = true;
-
-    this.errorDialog
-      .afterClosed()
-      .subscribe((result) => (this.isOpenErrorDialog = false));
-  } */
 }
