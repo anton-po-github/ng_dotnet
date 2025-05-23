@@ -36,19 +36,9 @@ export class ThemeService {
     const oldTheme =
       this.theme === 'light-theme' ? 'dark-theme' : 'light-theme';
 
-    if (this.theme === 'light-theme') {
-      localStorage.setItem('chart-theme', 'gridLight');
-    } else {
-      localStorage.setItem('chart-theme', 'darkUnica');
-    }
-
     this.setDocumentBodyTheme(oldTheme);
 
     localStorage.setItem('preferred-theme', this.theme);
-
-    if (!localStorage.getItem('chart-theme')) {
-      localStorage.setItem('chart-theme', 'darkUnica');
-    }
 
     this.theme$.next(this.theme);
   }
