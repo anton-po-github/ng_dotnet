@@ -14,4 +14,8 @@ export class HomeService {
   public getIdentityUsers(): Observable<any> {
     return this.http.get<any>(this.url + '/current');
   }
+
+  public getTriggerError(): Observable<any> {
+    return this.http.get<any>(environment.baseUrl + 'errors/trigger-error');
+  }
 }

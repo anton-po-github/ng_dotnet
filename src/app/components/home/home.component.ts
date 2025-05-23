@@ -21,6 +21,14 @@ export class HomeComponent {
         // this.showLoader = false;
       }
     });
+
+    /*  this.homeService.getTriggerError().subscribe({
+      next: (result) => {},
+      error: (err) => {
+      },
+      complete: () => {
+      }
+    }); */
   }
 
   public getBgImageHome(): string {
