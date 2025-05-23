@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration production",
-    "build:ssr": "ng run dotnet_mongo_local_crud:server:dev",
+    "build": "rmdir /s /q dist & ng build --configuration production",
+    "build:ssr": "ng run ng_dotnet:server:dev",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

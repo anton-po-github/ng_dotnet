@@ -39,65 +39,8 @@ $custom-blue: (
   )
 );
 
-$custom-blue-darker: (
-  50: #87c5f7,
-  100: #61b3f6,
-  200: #3ba1f3,
-  300: #1d93f3,
-  400: #0c85e5,
-  500: #1777cb,
-  600: #1567b8,
-  700: #1258a8,
-  800: #0b3e8d,
-  900: #0b3e8d,
-  A100: #1c71ff,
-  A200: #0462ff,
-  A400: #0447ff,
-  A700: #0447ff,
-  contrast: (
-    50: rgba(black, 0.87),
-    100: rgba(black, 0.87),
-    200: rgba(black, 0.87),
-    300: rgba(black, 0.87),
-    400: rgba(black, 0.87),
-    500: white,
-    600: white,
-    700: white,
-    800: white,
-    900: white
-  )
-);
-
-$custom-yellow: (
-  50: #fffde7,
-  100: #fff9c4,
-  200: #fff59d,
-  300: #fff176,
-  400: #ffee58,
-  500: #ffeb3b,
-  600: #fdd835,
-  700: #fbc02d,
-  800: #f9a825,
-  900: #f57f17,
-  A100: #ffff8d,
-  A200: #ffff00,
-  A400: #ffea00,
-  A700: #ffd600,
-  contrast: (
-    50: rgba(black, 0.87),
-    100: rgba(black, 0.87),
-    200: rgba(black, 0.87),
-    300: rgba(black, 0.87),
-    400: rgba(black, 0.87),
-    500: rgba(black, 0.87),
-    600: rgba(black, 0.87),
-    700: rgba(black, 0.87),
-    800: rgba(black, 0.87),
-    900: rgba(black, 0.87)
-  )
-);
-
 $custom-violet: (
+  10: #810081,
   50: #fffde7,
   100: #fff9c4,
   200: #fff59d,
@@ -108,7 +51,7 @@ $custom-violet: (
   700: #fbc02d,
   800: #f9a825,
   900: #f57f17,
-  950: #810081,
+  950: #f5ea17,
   A100: #ffff8d,
   A200: #ffff00,
   A400: #ffea00,
@@ -128,7 +71,7 @@ $custom-violet: (
 );
 
 // App-Light theme
-$app-light-primary: mat.m2-define-palette($custom-blue);
+$app-light-primary: mat.m2-define-palette($custom-blue, 10);
 $app-light-accent: mat.m2-define-palette($custom-blue, 10);
 $app-light-theme: mat.m2-define-light-theme(
   (
@@ -142,8 +85,8 @@ $app-light-theme: mat.m2-define-light-theme(
 );
 
 // App-Dark theme
-$app-dark-primary: mat.m2-define-palette($custom-violet);
-$app-dark-accent: mat.m2-define-palette($custom-violet, 950);
+$app-dark-primary: mat.m2-define-palette($custom-violet, 10);
+$app-dark-accent: mat.m2-define-palette($custom-violet, 10);
 $app-dark-theme: mat.m2-define-dark-theme(
   (
     color: (

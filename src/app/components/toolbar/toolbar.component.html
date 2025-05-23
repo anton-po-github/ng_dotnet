@@ -3,12 +3,6 @@
   class="navbar"
   [ngStyle]="{ 'background-color': this.themeService.currentGlobalColors }"
 >
-  <!--  <div *ngIf="!this.authService.getAccessToken()">
-    <img class="ng-dotnet-icons" src="assets/images/ng-icon.svg" alt="" />
-    &
-    <img class="ng-dotnet-icons" src="assets/images/dotnet-icon.svg" alt="" />
-  </div> -->
-
   <div *ngIf="this.authService.getAccessToken()">
     <button class="toolbar-button" mat-button routerLink="/" aria-label="Home">
       <mat-icon>home</mat-icon>

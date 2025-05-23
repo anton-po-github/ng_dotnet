@@ -10,7 +10,7 @@
   fxLayoutAlign="center center"
   class="h-100vh"
 >
-  <mat-card color="accent" class="login-card pt-4">
+  <mat-card class="login-card pt-4">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <h2
         [ngStyle]="{
@@ -27,7 +27,6 @@
           'auth-light-theme': this.themeService.theme === 'light-theme',
           'w-100': true
         }"
-        color="accent"
         appearance="outline"
       >
         <mat-label>Email Address</mat-label>
@@ -37,7 +36,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field color="accent" appearance="outline" class="w-100">
+      <mat-form-field appearance="outline" class="w-100">
         <mat-label>Password</mat-label>
         <input matInput formControlName="password" type="password" />
         <mat-error *ngIf="loginForm.get('password')?.invalid">
@@ -66,8 +65,8 @@
 
         <div fxFlex="50" class="ms-1">
           <button
-            mat-raised-button
             color="accent"
+            mat-raised-button
             class="w-100"
             type="button"
             (click)="goToRegister()"
