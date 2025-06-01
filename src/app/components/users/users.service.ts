@@ -16,13 +16,14 @@ export interface IUserCreatedDeleted {
 }
 
 export interface IUsersDetails {
-  role: string;
-  salary: number;
+  Role: string;
+  Salary: number;
 }
 
 export interface IUsersData {
   details: IUsersDetails | string;
   email: string;
+  role: string;
   firstName: string;
   id: number;
   lastName: string;
@@ -45,14 +46,8 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
-  public getUsers(params?: string): Observable<Array<IUsers>> {
-    let userUrl = this.usersUrl;
-
-    if (params) {
-      userUrl += params;
-    }
-
-    return this.http.get<Array<IUsers>>(userUrl);
+  public getUsers(params?: string): Observable<IUsers> {
+    return this.http.get<IUsers>((this.usersUrl += params));
   }
 
   public addNewUser(newUser: INewUser): Observable<IUserCreatedDeleted> {

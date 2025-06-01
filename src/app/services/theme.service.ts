@@ -8,7 +8,9 @@ import { BehaviorSubject } from 'rxjs';
 export class ThemeService {
   public theme: 'light-theme' | 'dark-theme' = 'dark-theme';
 
-  private globalColors = { light: '#D7E3FF', dark: '#810081' };
+  //private globalColors = { light: '#7BC2F7', dark: '#810081' };
+  private globalColors = { light: '#B1BBE7', dark: '#5B0448' };
+  //private globalColors = { light: '#C4D2F0', dark: '#70085E' };
   private theme$ = new BehaviorSubject<string>('');
 
   constructor() {

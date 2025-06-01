@@ -10,13 +10,14 @@ mat.$theme-ignore-duplication-warnings: true;
 @include mat.all-component-typographies();
 
 $custom-blue: (
-  10: #d7e3ff,
+  10: #b1bbe7,
+  20: #b1bbe7,
   50: #abd8f9,
   100: #87c5f7,
   200: #61b3f6,
   300: #3ba1f3,
   400: #1d93f3,
-  500: #0c85e5,
+  500: #7bc2f7,
   600: #1777cb,
   700: #1567b8,
   800: #1258a8,
@@ -40,7 +41,8 @@ $custom-blue: (
 );
 
 $custom-violet: (
-  10: #810081,
+  10: #5b0448,
+  20: #5b0448,
   50: #fffde7,
   100: #fff9c4,
   200: #fff59d,
@@ -104,6 +106,17 @@ $app-dark-theme: mat.m2-define-dark-theme(
 
 .dark-theme {
   @include mat.all-component-themes($app-dark-theme);
+
+  .mat-mdc-table {
+    --mat-table-background-color: red;
+  }
+
+  // Paginator background (match the table)
+  .mat-mdc-paginator {
+    background-color: red;
+    // optionally reuse the CSS variable if you like:
+    // background-color: var(--mat-table-background-color);
+  }
 }
 
 .light-theme {

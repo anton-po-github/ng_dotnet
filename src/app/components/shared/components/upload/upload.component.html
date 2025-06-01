@@ -1,11 +1,9 @@
-<input type="file" #inputFile (change)="upload($event)" placeholder="Upload file">
+<div
+  class="position-absolute"
+  style="top: 20px; right: 20px"
+  (click)="onUploadFile()"
+>
+  <mat-icon color="accent" class="cursor-pointer">download</mat-icon>
+</div>
 
-<!--<input #file type="file" multiple (change)="uploadFormData(file.files)" />-->
-<br />
-<span style="font-weight:bold;color:green;" *ngIf="progress > 0 && progress < 100">
-  {{progress}}%
-</span>
-<span style="font-weight:bold;color:green;" *ngIf="message">
-  {{message}}
-</span>
-<br><br><br>
+<input [hidden]="true" type="file" (change)="upload($event)" #inputFile />

@@ -1,12 +1,20 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
-  styleUrls: ['./upload.component.scss'],
   standalone: false
 })
 export class UploadComponent implements OnInit {
+  @ViewChild('inputFile')
+  public inputFile = {} as ElementRef;
   @Output() fileImage = new EventEmitter<File>();
 
   public progress: number;
@@ -14,6 +22,12 @@ export class UploadComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  public onUploadFile(): void {
+    if (this.inputFile) {
+      this.inputFile.nativeElement.click();
+    }
+  }
 
   public upload(event) {
     this.fileImage.emit(event.target.files[0]);
