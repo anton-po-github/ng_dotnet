@@ -12,8 +12,6 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 import { SharedModule } from './components/shared/shared.module';
 
-import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
@@ -66,7 +64,6 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     ])
   ],
   providers: [
-    provideCharts(withDefaultRegisterables()),
     provideHttpClient(withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
