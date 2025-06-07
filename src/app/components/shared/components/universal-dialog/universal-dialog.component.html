@@ -3,43 +3,47 @@
 </h2>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" mat-dialog-content>
-  <div *ngFor="let field of data.fields">
-    <mat-form-field
-      appearance="fill"
-      class="w-full"
-      *ngIf="field.type !== 'file'"
-    >
-      <mat-label>{{ field.label }}</mat-label>
-      <input
-        matInput
-        [type]="field.type || 'text'"
-        [formControlName]="field.name"
-        [required]="field.required"
-      />
-    </mat-form-field>
-
-    <div *ngIf="field.type === 'file'" class="mb-4">
-      <app-upload
+  @for (field of data.fields; track field) {
+    <div>
+      @if (field.type !== 'file') {
+        <mat-form-field
+          appearance="fill"
+          class="w-full"
+          >
+          <mat-label>{{ field.label }}</mat-label>
+          <input
+            matInput
+            [type]="field.type || 'text'"
+            [formControlName]="field.name"
+            [required]="field.required"
+            />
+          </mat-form-field>
+        }
+        @if (field.type === 'file') {
+          <div class="mb-4">
+            <app-upload
         (fileImage)="
           form.get(field.name)?.setValue({ file: $event, type: $event?.type })
         "
-      />
-    </div>
-  </div>
+              />
+            </div>
+          }
+        </div>
+      }
 
-  <div fxLayout="row">
-    <div
+      <div fxLayout="row">
+        <div
       [ngClass]="{
             'cursor-disabled': form.invalid,
           }"
-    >
-      <button mat-raised-button [disabled]="form.invalid" (click)="onSubmit()">
-        {{ data.mode === 'update' ? 'Update' : 'Add' }}
-      </button>
-    </div>
+          >
+          <button mat-raised-button [disabled]="form.invalid" (click)="onSubmit()">
+            {{ data.mode === 'update' ? 'Update' : 'Add' }}
+          </button>
+        </div>
 
-    <button mat-raised-button color="warn" (click)="dialogRef.close()">
-      Cancel
-    </button>
-  </div>
-</form>
+        <button mat-raised-button color="warn" (click)="dialogRef.close()">
+          Cancel
+        </button>
+      </div>
+    </form>

@@ -2,7 +2,7 @@
   <button
     class="btn btn-primary"
     [routerLink]="['/products/add-update-product']"
-  >
+    >
     Add Product
   </button>
 
@@ -20,25 +20,27 @@
         </tr>
       </thead>
 
-      <tbody *ngFor="let product of products$ | async">
-        <tr>
-          <td>{{ product.productName }}</td>
-          <td>{{ product.productDescription }}</td>
-          <td>{{ product.discount }}</td>
-          <td>{{ product.price }}</td>
-          <td>
-            <button (click)="updateProduct(product)" class="btn btn-info me-2">
-              Update
-            </button>
-            <button
-              (click)="deleteProduct(product.id)"
-              class="btn btn-danger me-2"
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
-      </tbody>
+      @for (product of products$ | async; track product) {
+        <tbody>
+          <tr>
+            <td>{{ product.productName }}</td>
+            <td>{{ product.productDescription }}</td>
+            <td>{{ product.discount }}</td>
+            <td>{{ product.price }}</td>
+            <td>
+              <button (click)="updateProduct(product)" class="btn btn-info me-2">
+                Update
+              </button>
+              <button
+                (click)="deleteProduct(product.id)"
+                class="btn btn-danger me-2"
+                >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      }
     </table>
   </div>
 </div>

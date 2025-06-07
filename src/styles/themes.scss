@@ -108,12 +108,12 @@ $app-dark-theme: mat.m2-define-dark-theme(
   @include mat.all-component-themes($app-dark-theme);
 
   .mat-mdc-table {
-    --mat-table-background-color: red;
+    //  --mat-table-background-color: red;
   }
 
   // Paginator background (match the table)
   .mat-mdc-paginator {
-    background-color: red;
+    // background-color: red;
     // optionally reuse the CSS variable if you like:
     // background-color: var(--mat-table-background-color);
   }

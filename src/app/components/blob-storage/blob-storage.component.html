@@ -16,26 +16,26 @@
 
       <th class="column3" style="text-align:center;">Delete</th>
     </tr>
-    <tr *ngFor="let file of files">
-      <td class="column1">{{file}}</td>
-      <td class="column2" style="text-align:center;cursor: pointer;" (click)="downloadFile(file)">
-        <button class="btn btn-success" >Upload</button>
-
-      </td>
-
-      <td class="column3" style="text-align:center;" (click)="deleteFile(file)">
-
-        <button class="btn btn-danger">Delete</button>
-
-      </td>
-    </tr>
+    @for (file of files; track file) {
+      <tr>
+        <td class="column1">{{file}}</td>
+        <td class="column2" style="text-align:center;cursor: pointer;" (click)="downloadFile(file)">
+          <button class="btn btn-success" >Upload</button>
+        </td>
+        <td class="column3" style="text-align:center;" (click)="deleteFile(file)">
+          <button class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+    }
   </table>
 </div>
 
-<div class="file-loader" *ngIf="showLoader">
-  <div class="upload-loader">
-    <div class="loader"></div>
+@if (showLoader) {
+  <div class="file-loader">
+    <div class="upload-loader">
+      <div class="loader"></div>
+    </div>
   </div>
-</div>
+}
 
 <button type="button" class="btn btn-secondary" (click)="onClick()" style="cursor: pointer;">Add file</button>

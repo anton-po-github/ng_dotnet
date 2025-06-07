@@ -9,7 +9,7 @@
   fxLayout="row"
   fxLayoutAlign="center center"
   class="h-100vh"
->
+  >
   <mat-card class="login-card pt-4">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <h2
@@ -17,7 +17,7 @@
           color: this.themeService.theme === 'dark-theme' ? '#fff' : '#000'
         }"
         class="mat-headline-5 text-center mb-4"
-      >
+        >
         Login
       </h2>
 
@@ -28,20 +28,24 @@
           'w-100': true
         }"
         appearance="outline"
-      >
+        >
         <mat-label>Email Address</mat-label>
         <input matInput formControlName="email" type="email" />
-        <mat-error *ngIf="loginForm.get('email')?.invalid">
-          Valid email is required
-        </mat-error>
+        @if (loginForm.get('email')?.invalid) {
+          <mat-error>
+            Valid email is required
+          </mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Password</mat-label>
         <input matInput formControlName="password" type="password" />
-        <mat-error *ngIf="loginForm.get('password')?.invalid">
-          Password is required
-        </mat-error>
+        @if (loginForm.get('password')?.invalid) {
+          <mat-error>
+            Password is required
+          </mat-error>
+        }
       </mat-form-field>
 
       <div fxLayout="row">
@@ -51,14 +55,14 @@
             'cursor-disabled': loginForm.invalid,
             'me-1': true
           }"
-        >
+          >
           <button
             mat-raised-button
             color="accent"
             class="w-100"
             type="submit"
             [disabled]="loginForm.invalid"
-          >
+            >
             Sign In
           </button>
         </div>
@@ -70,7 +74,7 @@
             class="w-100"
             type="button"
             (click)="goToRegister()"
-          >
+            >
             Sign up
           </button>
         </div>

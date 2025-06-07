@@ -18,26 +18,28 @@
       type="text"
       class="form-control"
       placeholder="Your name"
-    />
-  </div>
+      />
+    </div>
 
-  <div>
-    <input
-      [(ngModel)]="message"
-      type="text"
-      class="form-control"
-      placeholder="Your message"
-    />
-  </div>
+    <div>
+      <input
+        [(ngModel)]="message"
+        type="text"
+        class="form-control"
+        placeholder="Your message"
+        />
+      </div>
 
-  <br />
+      <br />
 
-  <button class="btn btn-lg btn-primary mb-3" (click)="sendMessage()">
-    Send
-  </button>
+      <button class="btn btn-lg btn-primary mb-3" (click)="sendMessage()">
+        Send
+      </button>
 
-  <br />
-  <ul>
-    <li *ngFor="let msg of messages">{{ msg }}</li>
-  </ul>
-</div>
+      <br />
+      <ul>
+        @for (msg of messages; track msg) {
+          <li>{{ msg }}</li>
+        }
+      </ul>
+    </div>

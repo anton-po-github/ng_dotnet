@@ -19,34 +19,36 @@
         </tr>
       </thead>
 
-      <tbody *ngFor="let book of books$ | async">
-        <tr>
-          <td>
-            <div *ngIf="!book.iconPath">
-              {{ 'no icon' }}
-            </div>
-
-            <img
-              style="height: 50px"
-              [src]="'data:image/png;base64,' + book.iconPath"
-              alt=""
-            />
-          </td>
-
-          <td>{{ book.bookName }}</td>
-          <td>{{ book.category }}</td>
-          <td>{{ book.price }}</td>
-          <td>{{ book.author }}</td>
-          <td>
-            <button (click)="updateBook(book)" class="btn btn-info me-2">
-              Update
-            </button>
-            <button (click)="deleteBook(book.id)" class="btn btn-danger me-2">
-              Delete
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      @for (book of books$ | async; track book) {
+        <tbody>
+          <tr>
+            <td>
+              @if (!book.iconPath) {
+                <div>
+                  {{ 'no icon' }}
+                </div>
+              }
+              <img
+                style="height: 50px"
+                [src]="'data:image/png;base64,' + book.iconPath"
+                alt=""
+                />
+              </td>
+              <td>{{ book.bookName }}</td>
+              <td>{{ book.category }}</td>
+              <td>{{ book.price }}</td>
+              <td>{{ book.author }}</td>
+              <td>
+                <button (click)="updateBook(book)" class="btn btn-info me-2">
+                  Update
+                </button>
+                <button (click)="deleteBook(book.id)" class="btn btn-danger me-2">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        }
+      </table>
+    </div>
   </div>
-</div>
