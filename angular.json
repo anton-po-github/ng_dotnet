@@ -15,7 +15,8 @@
           "options": {
             "progress": false,
             "outputPath": {
-              "base": "dist/ng_dotnet"
+              "base": "dist/ng_dotnet",
+              "browser": ""
             },
             "index": "src/index.html",
             "polyfills": ["src/polyfills.ts"],
