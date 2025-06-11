@@ -47,7 +47,7 @@ export class UsersService {
   constructor(private http: HttpClient) {}
 
   public getUsers(params?: string): Observable<IUsers> {
-    return this.http.get<IUsers>((this.usersUrl += params));
+    return this.http.get<IUsers>(this.usersUrl + params);
   }
 
   public addNewUser(newUser: INewUser): Observable<IUserCreatedDeleted> {

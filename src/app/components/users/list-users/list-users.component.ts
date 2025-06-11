@@ -156,7 +156,7 @@ export class ListUsersComponent implements OnInit {
   }
 
   private onGetUsers(params?: string): void {
-    this.usersService.getUsers(params).subscribe({
+    this.usersService.getUsers(params ? params : '').subscribe({
       next: (result: IUsers) => {
         this.resultIUsers = result;
 
