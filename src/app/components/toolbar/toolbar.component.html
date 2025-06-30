@@ -3,12 +3,22 @@
   class="navbar"
   [ngStyle]="{ 'background-color': this.themeService.currentGlobalColors }"
 >
-  @if (this.authService.getAccessToken()) {
+  @if (this.authService.getAccessToken()) { @if (windowInnerWidth < 500) {
+  <div class="mt-1">
+    <mat-icon class="me-4" routerLink="/">home</mat-icon>
+    <mat-icon class="me-4" [routerLink]="['/users']">groups</mat-icon>
+    <mat-icon class="me-4" [routerLink]="['/books']">library_books</mat-icon>
+    <mat-icon class="me-4" [routerLink]="['/signalr-chat']"
+      >question_answer</mat-icon
+    >
+  </div>
+  } @if (windowInnerWidth > 500) {
   <div>
     <button class="toolbar-button" mat-button routerLink="/" aria-label="Home">
       <mat-icon>home</mat-icon>
       Home
     </button>
+
     <button
       class="toolbar-button"
       mat-button
@@ -17,22 +27,15 @@
     >
       Users
     </button>
+
     <button
-      class="toolbar-button"
-      mat-button
-      [routerLink]="['/books']"
-      aria-label="Books"
-    >
-      Books
-    </button>
-    <!--   <button
       class="toolbar-button"
       mat-button
       [routerLink]="['/products']"
       aria-label="Products"
     >
       Products
-    </button> -->
+    </button>
     <button
       class="toolbar-button"
       mat-button
@@ -42,7 +45,8 @@
       Chat
     </button>
   </div>
-  }
+
+  } }
 
   <span class="spacer"></span>
 

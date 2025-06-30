@@ -10,6 +10,7 @@ import { ThemeService } from './../../services/theme.service';
   standalone: false
 })
 export class ToolbarComponent {
+  public windowInnerWidth = window.innerWidth;
   constructor(
     public themeService: ThemeService,
     public authService: AuthService
