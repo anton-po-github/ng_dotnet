@@ -31,18 +31,27 @@
     <button
       class="toolbar-button"
       mat-button
+      [routerLink]="['/books']"
+      aria-label="Books"
+    >
+      Books
+    </button>
+
+    <!--   <button
+      class="toolbar-button"
+      mat-button
       [routerLink]="['/products']"
       aria-label="Products"
     >
       Products
-    </button>
+    </button> -->
     <button
       class="toolbar-button"
       mat-button
       [routerLink]="['/signalr-chat']"
       aria-label="Chat"
     >
-      Chat
+      Chats
     </button>
   </div>
 

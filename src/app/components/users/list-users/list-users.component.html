@@ -24,7 +24,12 @@
   }
 
   <!-- <button class="btn btn-primary" (click)="addUser()">Add User</button> -->
-  <button class="btn btn-primary" [routerLink]="['/users/add-update-user']">
+  @if (users.length) {
+  <button
+    class="btn btn-primary mt-3"
+    [routerLink]="['/users/add-update-user']"
+  >
     Add User
   </button>
+  }
 </div>
