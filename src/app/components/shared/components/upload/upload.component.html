@@ -1,9 +1,13 @@
-<div
-  class="position-absolute"
-  style="top: 20px; right: 20px"
-  (click)="onUploadFile()"
->
-  <mat-icon color="accent" class="cursor-pointer">download</mat-icon>
+<div class="position-absolute" style="top: 20px; right: 20px">
+  <span style="color: red; margin-bottom: 5px; display: inline-block"> * </span>
+  <mat-icon
+    [matTooltip]="`file upload is required, in ${this.router.url.split('/')[1] === 'books' ? 'PNG' : 'PNG, PDF, SVG, JPG, JPEG'} `"
+    [matTooltipPosition]="'above'"
+    color="accent"
+    (click)="onUploadFile()"
+    class="cursor-pointer"
+    >download</mat-icon
+  >
 </div>
 
 <input [hidden]="true" type="file" (change)="upload($event)" #inputFile />

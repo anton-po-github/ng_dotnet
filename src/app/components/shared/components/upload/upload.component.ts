@@ -6,6 +6,7 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-upload',
@@ -19,7 +20,7 @@ export class UploadComponent implements OnInit {
 
   public progress: number;
   public message: string;
-  constructor() {}
+  constructor(public router: Router) {}
 
   ngOnInit(): void {}
 
